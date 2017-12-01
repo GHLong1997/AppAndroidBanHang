@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+   >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:layout_collapseMode="pin"
+        android:background="@color/colorWhite">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
+            >
+
+
+            <LinearLayout
+                android:layout_marginTop="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax"
+                android:background="@color/colorWhite">
+
+            <LinearLayout
+                android:layout_marginTop="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/colorWhite"
+                android:padding="5dp"
+                >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="Shopee Mail"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:background="@drawable/vienchunhatxam"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="3dp"
+
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="Yêu thích"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:background="@drawable/vienchunhatxam"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="3dp"/>
+                <Button
+                    android:layout_marginBottom="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="Từ"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:background="@drawable/vienchunhatxam"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="Vận chuyển"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:background="@drawable/vienchunhatxam"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="3dp"/>
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerDMCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/graygray"/>
+        </LinearLayout>
+            <android.support.v7.widget.Toolbar
+
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorWhite"
+                app:layout_collapseMode="pin"
+                >
+
+                <LinearLayout
+                    android:layout_marginLeft="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:background="@color/colorWhite"
+                    >
+                    <Button
+                        android:paddingLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_search_black_18dp"
+                        android:background="@drawable/viench"
+                        android:text="Shopee"
+                        android:textColor="#9E9E9E"
+                        android:gravity="start|center"
+                        android:textAllCaps="false"
+                        android:drawablePadding="3dp"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        />
+                    <ImageButton
+                        android:paddingLeft="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ssa"
+                        android:background="@android:color/transparent"
+                        android:textSize="10sp"
+                        />
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+            <android.support.design.widget.TabLayout
+                android:layout_marginTop="?attr/actionBarSize"
+                android:id="@+id/tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                android:background="@color/colorWhite"
+                app:tabTextColor="@color/colorGray"
+                app:tabSelectedTextColor="@color/bgToolbar"
+                app:tabTextAppearance="@style/MyCustomTextAppearance"
+                app:layout_collapseMode="pin"
+
+
+                />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+       >
+
+    </android.support.v4.view.ViewPager>
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

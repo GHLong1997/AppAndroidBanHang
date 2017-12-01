@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/lnDiaChi"
+>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/txtTen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Long"
+                android:textColor="#000"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/txtMatDinh"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[Mặc định]"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtSDT"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0987284146"/>
+        <LinearLayout
+
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txtDiaChiCuThe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số 4 trần hưng đạo"
+                android:layout_weight="1"/>
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/imMatDinh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_done_orange_18dp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtXa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xã Nghĩa Đạo"/>
+        <TextView
+            android:id="@+id/txtHuyen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Huyện Thuận Thành"/>
+        <TextView
+            android:id="@+id/txtThanhPho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bắc Ninh"/>
+    </LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#BDBDBD"></View>
+</LinearLayout>

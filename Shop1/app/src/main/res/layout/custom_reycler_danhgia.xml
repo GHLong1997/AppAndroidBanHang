@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imNguoiDanhGia"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="12dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtTenNguoiDanhGia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="Long"
+                android:textColor="#383535"
+                />
+            <RatingBar
+                android:layout_marginTop="3.5dp"
+                android:id="@+id/rdDanhGia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/DoiMauRatingBar"
+                android:scaleX=".7"
+                android:scaleY=".7"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp"
+                android:rating="5"
+                android:padding="0dp"
+
+                />
+
+            <TextView
+                android:id="@+id/txtNoiDungDG"
+                android:textColor="#222"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhìn cũng ổn"/>
+            <TextView
+                android:id="@+id/txtNgayDanhGia"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10-11-2017"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/vLine"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEE"></View>
+</LinearLayout>

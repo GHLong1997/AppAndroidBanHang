@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="bgLogo">#f67122</color>
+    <color name="colorGray">#878484</color>
+    <color name="colorFacebook">#FF4B22AB</color>
+    <color name="colorGoogle">#da48a5</color>
+    <color name="colorRed">#FFF62226</color>
+    <color name="transparent">#80000000</color>
+    <color name="coloGreen">#801CD200</color>
+    <color name="colorStatus">#FF1D3E73</color>
+    <color name="colorBlack">#FF000000</color>
+    <color name="colorGanBlack">#424242</color>
+    <color name="Xanh">#FF274EF9</color>
+    <color name="bgLinearInToolBar">#e53e09</color>
+    <color name="bgToolbar">#ff5521</color>
+    <color name="transpare">#00FFFFFF</color>
+    <color name="gantrang">#FFF1EAEB</color>
+    <color name="ganGray">#f9f4f5</color>
+    <color name="tran">#48000000</color>
+    <color name="gr">#F5F5F5</color>
+    <color name="graygray">#F5F5F5</color>
+    <color name="datroi">#304FFE</color>
+    <color name="lacay">#00BFA5</color>
+    <color name="lachuoi">#76FF03</color>
+    <color name="camlat">#FFCC80</color>
+    <color name="transparentyellow">#B3FFD600</color>
+    <color name="colorSliderInActive">#dcded8</color>
+    <color name="ggg">#f2efef</color>
+    <color name="xam">#888</color>
+    <color name="lam">#04ceb2</color>
+    <color name="cam">#fe5722</color>
+    <color name="lam1">#00BFA5</color>
+</resources>

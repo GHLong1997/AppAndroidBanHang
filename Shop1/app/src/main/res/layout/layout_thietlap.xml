@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+
+        <android.support.v7.widget.Toolbar
+
+            android:id="@+id/idtoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:background="@color/colorWhite">
+        </android.support.v7.widget.Toolbar>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp">
+
+        <TextView
+            android:background="@color/gr"
+            android:text="Tài khoản"
+            android:paddingTop="13dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Button
+            android:id="@+id/btnHoSo"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Hồ sơ của tôi"
+            android:textAllCaps="false"
+            android:layout_gravity="left"
+            android:gravity="left|center"
+            android:textColor="@color/colorGanBlack"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+        <Button
+            android:id="@+id/btnDiaChi"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Địa chỉ shop"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+        <Button
+            android:id="@+id/btnThe"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Tài khoản/ Thẻ Ngân hàng"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <TextView
+            android:background="@color/gr"
+            android:text="Cài đặt"
+            android:paddingTop="13dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Button
+            android:id="@+id/btnCaiDatChat"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Cài dặt Chat"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+        <Button
+            android:id="@+id/btnCdThongbao"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Cài đặt thông báo"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+        <Button
+            android:id="@+id/btnRiengtu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Cài đặt riêng tư"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+        <Button
+            android:id="@+id/btnChan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Người dùng bị chặn"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+        <Button
+            android:id="@+id/btnNgonNgu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Ngôn ngữ"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+
+        <TextView
+            android:background="@color/gr"
+            android:text="Hỗ trợ"
+            android:paddingTop="13dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Hồ sơ của tôi"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+
+        <Button
+            android:id="@+id/Meo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Mẹo và thủ thuật"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+
+        <Button
+            android:id="@+id/btnTieuChuan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Tiêu chuẩn cộng đồng"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+
+        <Button
+            android:id="@+id/btnDieuKhoan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Điều khoản Shopee"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+
+        <Button
+            android:id="@+id/btnHaiLong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Hài lòng với Shopee? Hãy đánh giá chúng tôi ngay"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+
+        <Button
+            android:id="@+id/btnXoaBoNho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Xóa bộ nhớ"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gr"/>
+
+        <Button
+            android:id="@+id/btnXoaTaiKhoan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@color/colorWhite"
+            android:text="Yêu cầu xóa tài khoản"
+            android:textAllCaps="false"
+            android:gravity="left|center"
+            />
+
+</LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="130dp"
+           android:background="@color/gr"
+           android:orientation="vertical"
+           android:padding="15dp">
+           <Button
+               android:padding="10dp"
+               android:id="@+id/btnDangXuat"
+               android:layout_marginTop="15dp"
+               android:layout_width="match_parent"
+               android:layout_height="38dp"
+               android:background="@drawable/bgdangnhap_facebook"
+               android:text="Đăng Xuất"
+               android:textColor="@color/colorWhite"
+               android:textSize="15sp"/>
+
+           <TextView
+               android:textSize="14sp"
+               android:layout_marginTop="15dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:layout_gravity="center"
+               android:textAlignment="center"
+               android:text="Shopee v2.14.32"/>
+       </LinearLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -1,0 +1,1613 @@
+﻿  CREATE TABLE `thuonghieu` (
+        `MATHUONGHIEU` integer PRIMARY KEY,
+        `TENTHUONGHIEU` varchar(100) CHARACTER SET utf8 DEFAULT NULL, 
+        `HINHTHUONGHIEU` TEXT,
+        `LUOTMUA` integer
+        
+        );
+
+ CREATE TABLE `shop` (
+     `MASHOP`integer PRIMARY KEY AUTO_INCREMENT,
+     `TENSHOP` varchar(100) CHARACTER SET utf8 DEFAULT NULL, 
+     `HINHSHOP` TEXT,
+     `MASP` integer DEFAULT 0
+);
+         
+     CREATE TABLE `loaisanpham`(
+         `MALOAISP` integer AUTO_INCREMENT PRIMARY KEY,
+         `TENLOAISP` varchar(50) CHARACTER SET utf8,
+         `MALOAICHA` integer,
+         `HINHLOAISP` TEXT
+       
+         );
+         
+	
+
+    CREATE TABLE `sanpham` (
+        `MASP`  integer AUTO_INCREMENT PRIMARY KEY,
+        `TENSP` varchar(100) CHARACTER SET utf8 DEFAULT NULL, 
+        `GIA` decimal(10,0) DEFAULT NULL,
+        `ANHLON` TEXT,
+        `ANHNHO` TEXT,
+        `THONGTIN` TEXT CHARACTER SET  utf8,
+        `SOLUONG` int(11) DEFAULT NULL,
+        `MALOAISP` integer DEFAULT NULL ,
+        `MATHUONGHIEU` integer DEFAULT NULL,
+        `MANV` integer,
+        `LUOTMUA` integer,
+        `LUOTTHICH` integer DEFAULT 0,
+		`MASHOP` integer DEFAULT 1
+        );
+        
+     CREATE TABLE `chitietsanpham` (
+         `MACHITIET` integer,
+         `MASP` integer,
+         `TENCHITIET` varchar(100) CHARACTER SET utf8,
+         `GIATRI` varchar(50) CHARACTER SET utf8,
+         CONSTRAINT `PK_CHITETSP` PRIMARY KEY(`MACHITIET`,`MASP`)
+         );
+         
+      CREATE TABLE `loainhanvien`(
+          `MALOAINV` integer PRIMARY KEY,
+          `TENLOAINV` varchar(50) CHARACTER SET utf8
+          );
+     
+     CREATE TABLE `nhanvien` (
+        `MANV` integer AUTO_INCREMENT PRIMARY KEY,
+        `TENNV` varchar(50) CHARACTER SET utf8,
+        `TENDANGNHAP` varchar(50),
+         `MATKHAU` varchar(30),
+         `DIACHI` varchar(50) CHARACTER SET utf8,
+         `NGAYSINH` varchar(50),
+         `SODT` varchar(12),
+         `GIOITINH` varchar(5),
+         `MALOAINV` integer
+         );
+         
+     CREATE TABLE `hoadon` (
+         `MAHD` integer AUTO_INCREMENT PRIMARY KEY,
+         `NGAYMUA` varchar(50),
+         `NGAYGIAO` varchar(50),
+         `TRANGTHAI` varchar(50) CHARACTER SET utf8 DEFAULT 'chờ kiểm duyệt',
+         `TENNGUOINHAN` varchar(50) CHARACTER SET utf8,
+         `SODT` varchar(12),
+         `DIACHI` varchar(50) CHARACTER SET utf8,
+         `HINHTHUCTHANHTOAN` varchar(20) CHARACTER SET utf8
+         
+         );
+         
+       CREATE TABLE `chitiethoadon`(
+           `MAHD` integer,
+           `MASP` integer,
+           `SOLUONG` integer,
+           CONSTRAINT `PK_CTHD` PRIMARY KEY(`MAHD`,`MASP`)
+           );
+           
+        CREATE TABLE `danhgia`(
+         `MADG` varchar(100) NOT NULL,
+         `MASP` integer,
+	 `TENDANGNHAP` varchar(50) CHARACTER SET utf8,
+	 `HINHDANGNHAP` TEXT,
+	 `SOSAO` integer,			
+        `NOIDUNG` varchar(50) CHARACTER SET utf8,
+	 `TENTHIETBI` varchar(150),
+         `NGAYDANHGIA` varchar(20),
+	    CONSTRAINT PR_DG PRIMARY KEY(MADG,MASP),
+            CONSTRAINT FORR_MASP  FOREIGN KEY(`MASP`) REFERENCES `sanpham`(`MASP`)
+            
+            );
+
+	CREATE TABLE `khuyenmai` (
+    `MAKM` integer AUTO_INCREMENT PRIMARY KEY,
+    `MALOAISP` integer,
+    `TENKM` varchar(100) CHARACTER SET utf8,
+    `NGAYBATDAU` varchar(50),
+    `NGAYKETTHUC` varchar(50),
+    `HINHKHUYENMAI` TEXT,
+    CONSTRAINT FR_KM FOREIGN KEY(`MALOAISP`) REFERENCES `loaisanpham`(`MALOAISP`)
+    );
+ 
+ CREATE TABLE `chitietkhuyenmai`(
+     `MAKM` integer,
+     `MASP` integer,
+     `PHANTRAMKM` integer,
+     CONSTRAINT PK_CTTK PRIMARY KEY (`MAKM`,`MASP`),
+     CONSTRAINT FR_CTTK FOREIGN KEY (`MAKM`) REFERENCES `khuyenmai`(`MAKM`)
+     );
+     
+     
+  CREATE TABLE `binhluan` (
+      `MABL` integer AUTO_INCREMENT PRIMARY KEY,
+      `TIEUDE` varchar(1000) CHARACTER SET utf8,
+      `MANV`  integer,
+      CONSTRAINT FR_BL FOREIGN KEY (`MANV`) REFERENCES `nhanvien`(`MANV`)
+      );
+      
+   CREATE TABLE `chitietbinhluan` (
+       `MABL` integer,
+       `MANV` integer,
+       `NOIDUNGBL` TEXT,
+       `NGAYBL` TEXT,
+       	CONSTRAINT PR_CTBL PRIMARY KEY(`MABL`,`MANV`),
+        CONSTRAINT FR_CTBL FOREIGN KEY (`MANV`) REFERENCES `nhanvien`(`MANV`)
+       );
+            
+               
+       
+
+        ALTER TABLE `sanpham` 
+        ADD CONSTRAINT `FK_SP` FOREIGN KEY (`MATHUONGHIEU`) REFERENCES `thuonghieu`(`MATHUONGHIEU`),
+        ADD CONSTRAINT `FK_SP_LOAISP1` FOREIGN KEY (`MALOAISP`) REFERENCES `loaisanpham`(`MALOAISP`);
+        
+        ALTER TABLE `chitietsanpham` 
+        ADD CONSTRAINT `FK_CTSP_SP` FOREIGN KEY (`MASP`) REFERENCES `SANPHAM`(`MASP`)
+        ;
+        
+        ALTER TABLE `nhanvien` 
+        ADD CONSTRAINT `FK_NV_MLNV` FOREIGN KEY (`MALOAINV`) REFERENCES `loainhanvien`(`MALOAINV`)
+        ;
+        
+        
+        ALTER TABLE `chitiethoadon` 
+        ADD CONSTRAINT `FK_CTHD_MAHD` FOREIGN KEY (`MAHD`) REFERENCES `hoadon`(`MAHD`),
+        ADD CONSTRAINT `FK_CTHD_SP` FOREIGN KEY (`MASP`) REFERENCES `sanpham`(`MASP`)
+        ;
+        
+        ALTER TABLE `danhgia` 
+        ADD CONSTRAINT `FK_DG_MASP` FOREIGN KEY (`MASP`) REFERENCES `sanpham`(`MASP`)  ;
+
+
+	INSERT INTO `thuonghieu`(`MATHUONGHIEU`,`TENTHUONGHIEU`,`HINHTHUONGHIEU`,`LUOTMUA`) VALUES
+    	(0,'NOBRANCH','/hinhthuonghieu/nobranch.png',0),
+       (1,'SAMSUNG','/hinhthuonghieu/samsung.jpg',0),
+       (2,'NOKIA','/hinhthuonghieu/nokia.jpg',0),
+       (3,'OPPO','/hinhthuonghieu/oppo.jpg',0),
+       (4,'XIAOMI','/hinhthuonghieu/xiaomi.jpg',0),
+       (5,'APPLE','/hinhthuonghieu/apple.jpg',0),
+       (6,'HTC','/hinhthuonghieu/htc.jpg',0),
+       (7,'HUAWEI','/hinhthuonghieu/huawei.jpg',0),
+       (8,'FPT','/hinhthuonghieu/fpt.jpg',0),
+       (9,'ORICO','/hinhthuonghieu/orico.jpg',0),
+       (10,'KHODIDONG','/hinhthuonghieu/khodidong.jpg',0),
+       (11,'JOYROOM','/hinhthuonghieu/joyroom.jpg',0),
+       (12,'IFINIX','/hinhthuonghieu/ifinix.jpg',0),
+       (13,'VINARED','/hinhthuonghieu/vinared.jpg',0),
+       (14,'VIENTHINH','/hinhthuonghieu/vienthinh.jpg',0),
+       (15,'TUANDUONG','/hinhthuonghieu/tuanduong.jpg',0),
+       (16,'SUNTE','/hinhthuonghieu/sunte.jpg',0),
+       (17,'DIDONGVIET','/hinhthuonghieu/didongviet.jpg',0),
+       (18,'CHIEMTAI','/hinhthuonghieu/chiemtai.jpg',0),
+       (19,'BACKKHOA','/hinhthuonghieu/backkhoa.jpg',0),
+       (20,'YOOBAO','/hinhthuonghieu/yoobao.jpg',0),
+       (21,'ANKER','/hinhthuonghieu/anker.jpg',0),
+       (22,'139','/hinhthuonghieu/139.jpg',0),
+       (23,'NHATTIN','/hinhthuonghieu/nhattin.jpg',0),
+       (24,'SMOBILE','/hinhthuonghieu/Smobile.jpg',0),
+       (25,'APPLE','/hinhthuonghieu/apple.jpg',0);
+        
+
+INSERT INTO `loaisanpham`(`MALOAISP`,`TENLOAISP`,`MALOAICHA`,`HINHLOAISP`) VALUES
+(1,'Thời trang nam',0,'/danhmuc/thoitrangnam.png'),
+(2,'Áo thun',1,""),
+(3,'Áo khoác & Áo vest',1,""),
+(4,'Đồ bộ/Đồ mặc nhà',1,""),
+(5,'Quần',1,""),
+(6,'Mắt kính',1,""),
+(7,'Áo sơ mi',1,""),
+(8,'Áo nỉ/Áo len',1,""),
+(9,'Đồ đôi',1,""),
+(10,'Balo/Túi/Ví',1,""),
+(11,'Phụ kiện nam',1,""),
+
+
+(12,'Điện thoại & Phụ kiện',0,'/danhmuc/dienthoaivaphukien.png'),
+(13,'Điện thoại & Tablet',12,'/danhmuc/dienthoaivaphukien/dienthoaivatablet.png'),
+(14,'Điện thoại phổ thông',13,""),
+(15,'IPhone',13,""),
+(16,'Samsung',13,""),
+(17,'Máy tính bảng',13,""),
+(18,'OPPO',13,""),
+(19,'Xiaomi',13,""),
+(20,'Ipad',13,""),
+
+(21,'Pin,Cáp & Bộ sạc',12,'/danhmuc/dienthoaivaphukien/pincapvabosac.jpg'),
+(22,'Cáp sạc và cáp OTG',21,""),
+(23,'Khác',21,""),
+(24,'Samsung',21,""),
+(25,'Pin gắn trong',21,""),
+(26,'Cáp sạc',21,""),
+(27,'Đế sạc',21,""),
+
+(28,'Miếng dán màn hình',12,'/danhmuc/dienthoaivaphukien/miengdan.jpg'),
+(29,'Miếng dán Samsung',28,""),
+(30,'Miếng dán Iphone',28,""),
+(31,'Miếng dán Sony',28,""),
+(32,'Miếng dán IPad',28,""),
+(33,'Miếng dán IPad và máy tính bảng',28,""),
+(34,'Miếng dán tablet',28,""),
+
+(35,'Giá đỡ & Kẹp',12,'/danhmuc/dienthoaivaphukien/giado.jpg'),
+(36,'Giá đỡ',35,""),
+(37,'Kẹp',35,""),
+(38,'Giá đỡ cho ô tô',35,""),
+
+(39,'Pin sạc dự phòng',12,'/danhmuc/dienthoaivaphukien/pinsacduphong.jpg'),
+(40,'Pin sạc 10000mAh',39,""),
+(41,'Pin sạc 20000mAh',39,""),
+(42,'Pin sạc 5000mAh',39,""),
+
+(43,'Vỏ,Bao & Ốp lưng',12,'/danhmuc/dienthoaivaphukien/vobaoop.jpg'),
+(44,'Ốp Iphone',43,""),
+(45,'Ốp Samsung',43,""),
+(46,'Bao da Samsung',43,""),
+(47,'Ốp Oppo',43,""),
+(48,'Bao da Iphone',43,""),
+(49,'Bao da Ipad và Máy tính bảng',43,""),
+(50,'Bao da Oppo',43,""),
+
+(51,'Sim',12,'/danhmuc/dienthoaivaphukien/sim.jpg'),
+(52,'Sim số Viettel',51,""),
+(53,'Sim số mobiphone',51,""),
+(54,'Sim số Vinaphone',51,""),
+(55,'Sim 3G/4G Mobiphone',51,""),
+(56,'Sim 3G/4G Viettel',51,""),
+(57,'Sim 3G/4G Vinaphone',51,""),
+
+(58,'Gậy chụp hình',12,"/danhmuc/dienthoaivaphukien/gaychuphinh.jpg"),
+(59,'Gậy selfile không bluetouch',58,""),
+(60,'Gậy selfile có bluetouch',58,""),
+(61,'Remote bluetouch',58,""),
+
+
+(62,'Thiết bị điện tử',0,'/danhmuc/thietbidientu.png'),
+(63,'Thiết bị âm thanh',62,""),
+(64,'Thiết bị đeo thông minh',62,""),
+(65,'Android tivi Box',62,""),
+(66,'Tivi',62,""),
+(67,'Android tivi Box',62,""),
+(68,'Phụ kiện tivi',62,""),
+(69,'Tai nghe',62,""),
+(70,'Phụ kiện và thiết bị game',62,""),
+(71,'Android tivi Box',62,""),
+(72,'Android tivi Box',62,""),
+
+(73,'Máy tính và laptop',0,'/danhmuc/maytinhvalaptop.png'),
+(74,'Laptop',73,""),
+(75,'Link Kiện Máy tính',73,""),
+(76,'Thiết Bị Mạng',73,""),
+(77,'Máy In, Máy Scan & Máy Chiếu',73,""),
+(78,'Máy tính bàn',73,""),
+(79,'Chuột, Bàn Phím và Phụ kiện khác',73,""),
+(80,'USB & Ổ Cứng',73,""),
+(81,'Phần Mêm',73,""),
+
+
+(82,'Máy ảnh - Máy quay phim',0,'/danhmuc/mayanhvamayquayphim.png'),
+(83,'Máy ảnh du lịch & chụp lấy liên',82,""),
+(84,'Thẻ nhớ',82,""),
+(85,'Camera giám sát & Webcam',82,""),
+(86,'Máy ảnh DSLR',82,""),
+(87,'Máy ảnh không gương',82,""),
+(88,'Máy quay phim',82,""),
+(89,'Phụ kiện máy ảnh',82,""),
+
+
+(90,'Đồng Hồ',0,'/danhmuc/dongho.png'),
+(91,'Đồng hồ nam',90,""),
+(92,'Đồng hồ nữ',90,""),
+(93,'Đồng hồ trẻ em',90,""),
+(94,'Máy ảnh DSLR',90,""),
+(95,'Máy ảnh không gương',90,""),
+(96,'Máy quay phim',90,""),
+(97,'Phụ kiện máy ảnh',90,""),
+
+
+(98,'Giày Dép Nam ',0,'/danhmuc/giaydepnam.png'),
+(99,'Giày thể thao/Sneakers',98,""),
+(100,'Giày lưới',98,""),
+(101,'Giày tây',98,""),
+(102,'Xăng đan',98,""),
+(103,'Dép',98,""),
+(104,'Giày dép Unisex',98,""),
+(105,'Phụ kiện giày dép',98,""),
+
+
+(106,'Thiết Bị Điện Gia Dụng',0,'/danhmuc/thietbigiadung.png'),
+(107,'Đồ gia dụng nhà bếp',106,""),
+(108,'Quạt & Máy nóng lạnh',106,""),
+(109,'Thiết bị chăm sóc quần áo',106,""),
+(110,'Máy hút bụi & Thiết bị làm sạch',106,""),
+(111,'Đồ gia dụng lơn',106,""),
+(112,'Khác',106,""),
+
+
+(113,'Thể thao và du lịch',0,'/danhmuc/thethao.png'),
+(114,'Thể thao trong nhà',113,""),
+(115,'Thể thao dưới nước',113,""),
+(116,'Đồ bảo hộ',113,""),
+(117,'Vali/Túi/Balô',113,""),
+(118,'Thể thao ngoài trời',113,""),
+(119,'Giày & trang phục thể thao',113,""),
+(120,'Phụ kiện',113,""),
+(121,'Khác',113,""),
+
+
+(122,'Bách Hóa Online',0,'/danhmuc/bachhoaonl.png'),
+(123,'Ăn vắt & Bánh kẹo',122,""),
+(124,'Đồ hộp & Đóng gói',122,""),
+(125,'Đậu & Hạt',122,""),
+(126,'Đồ thú cưng',122,""),
+(127,'Đồ uống',122,""),
+(128,'Nấu ăn & Làm bánh',122,""),
+(129,'Đặc sản Việt',122,""),
+(130,'Quà biếu',122,""),
+
+
+(131,'Sản phẩm khác',0,'/danhmuc/sanphamkhac.png'),
+
+
+(132,'Thời trang nữ',0,'/danhmuc/thoitrangnu.png'),
+(133,'Áo',132,""),
+(134,'Chân váy',132,""),
+(135,'Quẩn',132,""),
+(136,'Đồ đôi',132,""),
+(137,'Đồ bơi',132,""),
+(138,'Phụ kiện may mặc',132,""),
+(139,'Thời trang trung niên',132,""),
+(140,'Đầm',132,""),
+(141,'Áo khoác & Áo vest',132,""),
+(142,'Se trang phục & Jumpsuit',132,""),
+(143,'Đồ lót, Đồ ngủ & Đồ mặc nhà',132,""),
+(144,'Trang phục thể thao',132,""),
+(145,'Trang phục Đông',132,""),
+
+
+(146,'Mẹ và bé',0,'/danhmuc/mevabe.png'),
+(147,'Thời trang bé gái',146,""),
+(148,'Quần áo và phụ kiện sơ sinh',146,""),
+(149,'Tã & Bỉm',146,""),
+(150,'Ghế,Nôi,Cũi,Xe đẩy & Đụi',146,""),
+(151,'Thời trang bé trai',146,""),
+(152,'Đồ dùng cho bé',146,""),
+(153,'Sữa & Đồ ăn',146,""),
+
+
+(154,'Nhà cửa & đời sống',0,'/danhmuc/nhacuavadoisong.png'),
+(155,'Dụng cụ & Thiết bị tiện ích',154,""),
+(156,'Chăn, Ga, Gối & Nệm',154,""),
+(157,'Trang trí nhà cửa',154,""),
+(158,'Đồ nội thất',154,""),
+(159,'Ngoài trời & Sân vườn',154,""),
+(160,'Đồ dùng nhà bế & Phòng ăn',154,""),
+(161,'Tủ đựng & hộp lưu trữ',154,""),
+(162,'Đồ dùng phòng tắm',154,""),
+(163,'Đèn',154,""),
+(164,'Dụng cụ cầm tay',154,""),
+
+
+(165,'Sức khỏe & sắc đẹp',0,'/danhmuc/suckhoevasacdep.png'),
+(166,'Chăm sóc da',165,""),
+(167,'Trang điểm da',165,""),
+(168,'Mỹ phẩm nam',165,""),
+(169,'Chăm sóc tóc',165,""),
+(170,'Chăm sóc móng',165,""),
+(171,'Dụng cụ làm đẹp',165,""),
+(172,'Nước hoa',165,""),
+(173,'Hóa Mỹ Phẩm & Khác',165,""),
+(174,'Son  Chăm sóc môi',165,""),
+(175,'Trang điểm mắt',165,""),
+(176,'Tắm & Chăm sóc cơ thể',165,""),
+(177,'Chăm sóc răng miệng',165,""),
+(178,'Máy massage & Thiết bị y tế',165,""),
+(179,'Vệ sinh phụ nữ & hỗ trợ tình dục',165,""),
+(180,'Vitamin& thực phẩm chức năng',165,""),
+
+(181,'Giày dép nữ',0,'/danhmuc/giaydepnu.png'),
+(182,'Giày cao gót',181,""),
+(183,'Sandal',181,""),
+
+
+(184,'Túi Ví',0,'/danhmuc/tuivi.png'),
+(185,'Túi đeo chéo nữ',184,""),
+(186,'Balo thời trang',184,""),
+(187,'Cặp văn phòng',184,""),
+(188,'Túi vải/Túi tote',184,""),
+(189,'Túi xách nữ',184,""),
+(190,'Ví/Bóp nữ',184,""),
+(191,'Túi đựng tiện ích',184,""),
+(192,'Phụ kiện túi ví khác',184,""),
+
+
+(193,'Phụ kiện thời trang',0,'/danhmuc/phukienthoitrang.png'),
+
+(194,'Voucher & Dịch vụ',0,'/danhmuc/voucher.png'),
+
+(195,'Ôtô- xe máy - xe đạp',0,'/danhmuc/otoxemay.png'),
+
+(196,'Nhà Sách Online',0,'/danhmuc/nhasach.png'),
+
+(197,'Đồ chơi',0,'/danhmuc/dochoi.png');
+
+
+INSERT INTO `loainhanvien`(`MALOAINV`,`TENLOAINV`) VALUES
+(1,'Admin'),
+(2,'Khách hàng');
+
+
+
+INSERT INTO `sanpham`(`MASP`,`TENSP`,`GIA`,`ANHLON`,`ANHNHO`,`THONGTIN`,`SOLUONG`,`MALOAISP`,`MATHUONGHIEU`,`MANV`,`LUOTMUA`) VALUES
+
+(1,'Điện thoại SAMSUNG Galaxy J2 Prime 8GB Vàng - Hàng Chính hãng','2200000','/hinhsanpham/dienthoaivaphukien/jj0.jpg',
+'/hinhsanpham/dienthoaivaphukien/jj0.jpg,/hinhsanpham/dienthoaivaphukien/jj1.jpg,/hinhsanpham/dienthoaivaphukien/jj2.jpg,/hinhsanpham/dienthoaivaphukien/jj3.jpg',
+ 'Bộ sản phẩm chuẩn: Hộp, Pin, Sạc, Tai nghe, Sách hướng dẫn, Cáp
+Samsung tiếp tục trình làng mẫu smartphone giá rẻ mới với tên gọi Samsung Galaxy J2 Prime mang nhiều cải tiến đáng giá như kết nối 4G.Thiết kế nhỏ gọn
+Samsung Galaxy J2 Prime  sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn cầm giữ một cách dễ dàng và thoải mái.,Máy sử dụng công nghệ màn hình PLS với kích thước 5 inch cho chất lượng hiển thị tốt.
+Màn hình PLS cho góc nhìn tốt',13,16,1,2,0),
+
+
+(2,'Điện thoại Samsung Galaxy J7 Pro 32GB Hãng phân phối chính thức','5899000','/hinhsanpham/dienthoaivaphukien/jj4.jpg',
+'/hinhsanpham/dienthoaivaphukien/jj4.jpg,/hinhsanpham/dienthoaivaphukien/jj5.jpg,/hinhsanpham/dienthoaivaphukien/jj6.jpg,/hinhsanpham/dienthoaivaphukien/jj7.jpg,/hinhsanpham/dienthoaivaphukien/jj8.jpg',
+ 'Galaxy J7 Pro là smartphone giá tầm trung của Samsung có thiết kế sang trọng, trang bị camera phẳng cùng ống kính độ lớn F1.7, thừa hưởng từ sản phẩm cao cấp Galaxy S8,Galaxy J7 Pro có thiết kế kim loại nguyên khối hoàn hảo
+,Galaxy J7 Pro có thiết kế kim loại nguyên khối sang trọng,Samsung Galaxy J7 Pro đẹp kiệt xuất nhờ sự kết hợp hoàn mỹ giữa lớp vỏ bằng kim loại nguyên khối sang trọng và mặt kính cường lực 2.5D cao cấp, tinh xảo ở mọi góc độ. Màn hình lớn 5.5 inches đi kèm với đường viền cong mềm mại cho phép mở rộng góc nhìn nhưng J7 Pro vẫn rất gọn gàng trên bàn tay của người dùng.
+',10,16,1,2,0),
+
+
+(3,'Điện thoại Samsung Galaxy J7 Prime - Hàng chính hãng','4759000','/hinhsanpham/dienthoaivaphukien/jj9.jpg',
+'/hinhsanpham/dienthoaivaphukien/jj9.jpg,/hinhsanpham/dienthoaivaphukien/jj10.jpg,/hinhsanpham/dienthoaivaphukien/jj11.jpg,/hinhsanpham/dienthoaivaphukien/jj12.jpg,/hinhsanpham/dienthoaivaphukien/jj12.jpg',
+ 'Galaxy J7 Pro là smartphone giá tầm trung của Samsung có thiết kế sang trọng, trang bị camera phẳng cùng ống kính độ lớn F1.7, thừa hưởng từ sản phẩm cao cấp Galaxy S8,Galaxy J7 Pro có thiết kế kim loại nguyên khối hoàn hảo
+,Galaxy J7 Pro có thiết kế kim loại nguyên khối sang trọng,Samsung Galaxy J7 Pro đẹp kiệt xuất nhờ sự kết hợp hoàn mỹ giữa lớp vỏ bằng kim loại nguyên khối sang trọng và mặt kính cường lực 2.5D cao cấp, tinh xảo ở mọi góc độ. Màn hình lớn 5.5 inches đi kèm với đường viền cong mềm mại cho phép mở rộng góc nhìn nhưng J7 Pro vẫn rất gọn gàng trên bàn tay của người dùng.
+',4,16,1,2,0),
+
+
+
+(4,'Điện thoại Samsung Galaxy J2 Prime 8GB (Vàng) - Hãng phân phối chính thức','2690000','/hinhsanpham/dienthoaivaphukien/jj13.jpg',
+'/hinhsanpham/dienthoaivaphukien/jj13.jpg,/hinhsanpham/dienthoaivaphukien/jj14.jpg,/hinhsanpham/dienthoaivaphukien/jj15.jpg,/hinhsanpham/dienthoaivaphukien/jj16.jpg,/hinhsanpham/dienthoaivaphukien/jj17.jpg',
+ 'Phụ kiện kèm theo: Cáp, sạc, tai nghe, sách hướng dẫn.
+Samsung tiếp tục trình làng mẫu smartphone giá rẻ mới với tên gọi Samsung Galaxy J2 Prime mang nhiều cải tiến đáng giá như kết nối 4G.
+*Thiết kế nhỏ gọn:
+Samsung Galaxy J2 Prime  sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn cầm giữ một cách dễ dàng và thoải mái.
+*Màn hình hiển thị tốt:
+Máy sử dụng công nghệ màn hình PLS với kích thước 5 inch cho chất lượng hiển thị tốt.
+*Cấu hình tầm trung:
+Galaxy J2 Prime chạy hệ điều hành Android 6.0 (Marshmallow), sử dụng vi xử lý MTK 6737, RAM dung lượng 1.5 GB.
+*Camera selfie có đèn flash
+Camera sau 8 MP có hỗ trợ đèn flash trợ sáng cho bạn những bức ảnh và video sáng rõ, chất lượng ngay cả trong điều kiện thiếu ánh sáng.
+Đặc biệt camera trước 5 MP có đèn flash giúp bạn thực hiện các cuộc gọi video vui vẻ với bạn bè.
+',12,16,1,2,0),
+
+
+(5,'Điện thoại Samsung Galaxy J2 Prime - hàng mới chính hãng','2450000','/hinhsanpham/dienthoaivaphukien/jj18.jpg',
+'/hinhsanpham/dienthoaivaphukien/jj18.jpg,/hinhsanpham/dienthoaivaphukien/jj19.jpg',
+ 'Giới thiệu sản phẩm Samsung Galaxy J2 Prime (vàng) - Hàng phân phối chính thức. 
+Tiếp nối sự thành công của thế hệ Samsung Galaxy J7 Prime.thì Samsung tiếp tục trình làng mẫu smartphone giá rẻ mới với tên.gọi Samsung Galaxy J2 Prime mang nhiều cải tiến đáng giá.
+Thiết kế nhỏ gọn.Samsung Galaxy J2 Prime  sở hữu thiết kế mỏng gọn cùng.các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn.tay, cho phép bạn cầm giữ một cách dễ dàng và thoải mái..,Hỗ trợ thẻ nhớ.Bộ nhớ của Galaxy J2 Prime có thể được mở rộng với thẻ nhớ ngoài.tối đa 256 GB cùng bộ nhớ trong lớn 8 GB giúp bạn thỏa sức lưu trữ.các bài hát, video yêu thích và nhiều dữ liệu khác để phục vụ nhu.cầu giải trí bất kể bạn đang ở đâu..',44,16,1,2,0),
+
+
+(6,'Điện thoại Samsung Galaxy Note 8','21999000','/hinhsanpham/dienthoaivaphukien/jj20.jpg',
+'/hinhsanpham/dienthoaivaphukien/jj20.jpg,/hinhsanpham/dienthoaivaphukien/jj21.jpg,/hinhsanpham/dienthoaivaphukien/jj22.jpg,/hinhsanpham/dienthoaivaphukien/jj23.jpg,/hinhsanpham/dienthoaivaphukien/jj24.jpg',
+ 'Giới thiệu sản phẩm Samsung Galaxy J2 Prime (vàng) - Hàng phân phối chính thức. 
+Tiếp nối sự thành công của thế hệ Samsung Galaxy J7 Prime.thì Samsung tiếp tục trình làng mẫu smartphone giá rẻ mới với tên.gọi Samsung Galaxy J2 Prime mang nhiều cải tiến đáng giá.
+Thiết kế nhỏ gọn.Samsung Galaxy J2 Prime  sở hữu thiết kế mỏng gọn cùng.các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn.tay, cho phép bạn cầm giữ một cách dễ dàng và thoải mái..,Hỗ trợ thẻ nhớ.Bộ nhớ của Galaxy J2 Prime có thể được mở rộng với thẻ nhớ ngoài.tối đa 256 GB cùng bộ nhớ trong lớn 8 GB giúp bạn thỏa sức lưu trữ.các bài hát, video yêu thích và nhiều dữ liệu khác để phục vụ nhu.cầu giải trí bất kể bạn đang ở đâu..',5,16,1,2,0),
+
+
+(7,'Điện Thoại Samsung Galaxy J2 Prime Hãng phân phối chính thức','2200000','/hinhsanpham/dienthoaivaphukien/jj25.jpg',
+'/hinhsanpham/dienthoaivaphukien/jj25.jpg,/hinhsanpham/dienthoaivaphukien/jj26.jpg,/hinhsanpham/dienthoaivaphukien/jj27.jpg,/hinhsanpham/dienthoaivaphukien/jj28.jpg,/hinhsanpham/dienthoaivaphukien/jj29.jpgg',
+ 'Bộ sản phẩm gồm có: Điện thoại, Pin, Sạc, Tai nghe, Sách hướng dẫn, Cáp
+,Samsung Galaxy J2 Prime  sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn cầm giữ một cách dễ dàng và thoải mái.,Samsung Galaxy J2 Prime - Đặc biệt bổ sung thêm sắc hồng cực bắt mắt
+',3,16,1,2,0),
+
+(8,'Điện Thoại Samsung Galaxy J3','1490000','/hinhsanpham/dienthoaivaphukien/jj30.jpg',
+'/hinhsanpham/dienthoaivaphukien/jj30.jpg,/hinhsanpham/dienthoaivaphukien/jj31.jpg,/hinhsanpham/dienthoaivaphukien/jj32.jpg',
+ 'Bộ sản phẩm gồm có: Điện thoại, Pin, Sạc, Tai nghe, Sách hướng dẫn, Cáp
+,Samsung Galaxy J2 Prime  sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn cầm giữ một cách dễ dàng và thoải mái.,Samsung Galaxy J2 Prime - Đặc biệt bổ sung thêm sắc hồng cực bắt mắt
+',13,16,1,2,0),
+
+ 
+
+
+(9,'Điện thoại Samsung Galaxy S8 plus Xanh san hô - Chính hãng FPT','19990000','/hinhsanpham/dienthoaivaphukien/galaxyxanhsanho3.jpg',
+'/hinhsanpham/dienthoaivaphukien/galaxyxanhsanho3.jpg,/hinhsanpham/dienthoaivaphukien/galaxyxanhsanho1.jpg,/hinhsanpham/dienthoaivaphukien/galaxyxanhsanho2.jpg,/hinhsanpham/dienthoaivaphukien/uudai.jpg',"Mua Samsung Galaxy S8, S8+ ngay hôm nay - Nhận quà khuyến mại khủng : 
+- Tặng ngay thẻ cào điện thoại vinaphone 1 triệu + Bao da đứng cao cấp Samsung Clear View trị giá 890k + Chân đế khuyếch đại âm thanh SS-SPEAKERDOCK
+Thời gian áp dụng: từ 12/6 đến 30/6/2017.
+- Bảo hành 12 tháng chính hãng 
+- Giao hàng miễn phí Hà Nội và Hồ Chí Minh trong vòng 4 tiếng từ thứ 2 đến thứ 6
+- 1 đổi 1 miễn phí trong vòng 15 ngày nếu sản phẩm bị lỗi do nhà sản xuất",10,16,1,2,0),
+ 
+ 
+(10,'Điện thoại Samsung Galaxy S8 plus Gold - Chính hãng FPT','19990000','/hinhsanpham/dienthoaivaphukien/g0.jpg',
+'/hinhsanpham/dienthoaivaphukien/g1.jpg,/hinhsanpham/dienthoaivaphukien/g2.jpg,/hinhsanpham/dienthoaivaphukien/g0.jpg,/hinhsanpham/dienthoaivaphukien/uudai.jpg',
+ 'Bộ sản phẩm gồm có: Điện thoại, Pin, Sạc, Tai nghe, Sách hướng dẫn, Cáp,Samsung Galaxy J2 PRime sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn giữ 1 cách dễ dàng và thoải  mái, đặt biệt bổ sung thêm sắc hồng cực bắt mắt, Máy sử dụng công nghệ màn hình PLS với kích thước 5 inch cho chất lượng hiển thị tốt, màn hình PLS cho góc nhìn tốt, Galaxy J2 PRime chạy hệ điều hành Android 6.0, sử dụng vi xử lý MTK 6737, RAM dung lượng 1,5GB, máy có thể chơi một số tựa game nhẹ nhàng, cấu hình máy chỉ ở mức trung bình , camera selfie có đèn flash',7,16,1,2,0),
+
+(11,'Điện thoại Samsung Galaxy S8 plus Gold - Chính hãng FPT','19990000','/hinhsanpham/dienthoaivaphukien/g0.jpg',
+'/hinhsanpham/dienthoaivaphukien/g1.jpg,/hinhsanpham/dienthoaivaphukien/g2.jpg,/hinhsanpham/dienthoaivaphukien/g0.jpg,/hinhsanpham/dienthoaivaphukien/uudai.jpg',
+ 'Bộ sản phẩm gồm có: Điện thoại, Pin, Sạc, Tai nghe, Sách hướng dẫn, Cáp,Samsung Galaxy J2 PRime sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn giữ 1 cách dễ dàng và thoải  mái, đặt biệt bổ sung thêm sắc hồng cực bắt mắt, Máy sử dụng công nghệ màn hình PLS với kích thước 5 inch cho chất lượng hiển thị tốt, màn hình PLS cho góc nhìn tốt, Galaxy J2 PRime chạy hệ điều hành Android 6.0, sử dụng vi xử lý MTK 6737, RAM dung lượng 1,5GB, máy có thể chơi một số tựa game nhẹ nhàng, cấu hình máy chỉ ở mức trung bình , camera selfie có đèn flash',8,16,1,2,0),
+
+(12,'Samsung Galaxy S8 Black - Chính hãng FPT','19990000','/hinhsanpham/dienthoaivaphukien/p1.jpg',
+'/hinhsanpham/dienthoaivaphukien/p2.jpg,/hinhsanpham/dienthoaivaphukien/p3.jpg,/hinhsanpham/dienthoaivaphukien/p1.jpg,/hinhsanpham/dienthoaivaphukien/p4.jpg',
+ 'Bộ sản phẩm gồm có: Điện thoại, Pin, Sạc, Tai nghe, Sách hướng dẫn, Cáp,Samsung Galaxy J2 PRime sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn giữ 1 cách dễ dàng và thoải  mái, đặt biệt bổ sung thêm sắc hồng cực bắt mắt, Máy sử dụng công nghệ màn hình PLS với kích thước 5 inch cho chất lượng hiển thị tốt, màn hình PLS cho góc nhìn tốt, Galaxy J2 PRime chạy hệ điều hành Android 6.0, sử dụng vi xử lý MTK 6737, RAM dung lượng 1,5GB, máy có thể chơi một số tựa game nhẹ nhàng, cấu hình máy chỉ ở mức trung bình , camera selfie có đèn flash',5,16,1,2,0),
+
+(13,'Điện Thoại Samsung Galaxy J2 Prime Hãng phân phối chính thức','2000.00','/hinhsanpham/dienthoaivaphukien/j20.jpg','/hinhsanpham/dienthoaivaphukien/j20.jpg,/hinhsanpham/dienthoaivaphukien/j21.jpg,
+ /hinhsanpham/dienthoaivaphukien/j22.jpg,/hinhsanpham/dienthoaivaphukien/j23.jpg,/hinhsanpham/dienthoaivaphukien/j24.jpg',
+ 'Bộ sản phẩm gồm có: Điện thoại, Pin, Sạc, Tai nghe, Sách hướng dẫn, Cáp,Samsung Galaxy J2 PRime sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn giữ 1 cách dễ dàng và thoải  mái, đặt biệt bổ sung thêm sắc hồng cực bắt mắt, Máy sử dụng công nghệ màn hình PLS với kích thước 5 inch cho chất lượng hiển thị tốt, màn hình PLS cho góc nhìn tốt, Galaxy J2 PRime chạy hệ điều hành Android 6.0, sử dụng vi xử lý MTK 6737, RAM dung lượng 1,5GB, máy có thể chơi một số tựa game nhẹ nhàng, cấu hình máy chỉ ở mức trung bình , camera selfie có đèn flash',5,16,1,2,0),
+ 
+ (14,'Điện Thoại Samsung Galaxy J2 Prime Hãng phân phối chính thức','2200000','/hinhsanpham/dienthoaivaphukien/j20.jpg','/hinhsanpham/dienthoaivaphukien/j20.jpg,/hinhsanpham/dienthoaivaphukien/j21.jpg,
+ /hinhsanpham/dienthoaivaphukien/j22.jpg,/hinhsanpham/dienthoaivaphukien/j23.jpg,/hinhsanpham/dienthoaivaphukien/j24.jpg',
+ 'Bộ sản phẩm gồm có: Điện thoại, Pin, Sạc, Tai nghe, Sách hướng dẫn, Cáp,Samsung Galaxy J2 PRime sở hữu thiết kế mỏng gọn cùng các đường bo góc khiến chiếc điện thoại này vừa vặn trong lòng bàn tay, cho phép bạn giữ 1 cách dễ dàng và thoải  mái, đặt biệt bổ sung thêm sắc hồng cực bắt mắt, Máy sử dụng công nghệ màn hình PLS với kích thước 5 inch cho chất lượng hiển thị tốt, màn hình PLS cho góc nhìn tốt, Galaxy J2 PRime chạy hệ điều hành Android 6.0, sử dụng vi xử lý MTK 6737, RAM dung lượng 1,5GB, máy có thể chơi một số tựa game nhẹ nhàng, cấu hình máy chỉ ở mức trung bình , camera selfie có đèn flash',5,16,1,2,0),
+ 
+ (15,'Điện thoại Samsung Galaxy J7 Pro 32GB Hãng phân phối chính thức','9.900.000','/hinhsanpham/dienthoaivaphukien/j20.jpg,/hinhsanpham/dienthoaivaphukien/j71.jpg',
+  '/hinhsanpham/dienthoaivaphukien/j71.jpg,/hinhsanpham/dienthoaivaphukien/j72.jpg,
+ /hinhsanpham/dienthoaivaphukien/j73.jpg,/hinhsanpham/dienthoaivaphukien/j74.jpg
+  ,/hinhsanpham/dienthoaivaphukien/j71.jpg',
+  'Galaxy J7 Pro là smartphone giá tầm trung của Samsung có thiết kế sang trọng, trang bị camera phẳng cùng ống kính độ lớn F1.7, thừa hưởng từ sản phẩm cao cấp Galaxy S8, Galaxy J7 Pro có thiết kế kim loại nguyên khối hoàn hảo, Galaxy J7 Pro có thiết kế kim loại nguyên khối sang trọng,Samsung Galaxy J7 Pro đẹp kiệt xuất nhờ sự kết hợp hoàn mỹ giữa lớp vỏ bằng kim loại nguyên khối sang trọng và mặt kính cường lực 2.5D cao cấp, tinh xảo ở mọi góc độ. Màn hình lớn 5.5 inches đi kèm với đường viền cong mềm mại cho phép mở rộng góc nhìn nhưng J7 Pro vẫn rất gọn gàng trên bàn tay của người dùng, Màn hình Full HD cho hình ảnh sắc nét,Màn hình Galaxy J7 Pro 5,5 inch, độ phân giải Full HD cho hình ảnh sắc nét',2,16,1,2,0),
+  
+  
+ (16,'ĐIỆN THOẠI XIAOMI MI6 - BLACK HÃNG PHÂN PHỐI CHÍNH THỨC','9900000','/hinhsanpham/dienthoaivaphukien/xx8.jpg','/hinhsanpham/dienthoaivaphukien/xx8.jpg,/hinhsanpham/dienthoaivaphukien/xx7.jpg,/hinhsanpham/dienthoaivaphukien/xx6.jpg,/hinhsanpham/dienthoaivaphukien/xxx5.jpg',
+ '----- SHOPEE MALL: TRUNG TÂM MUA SẮM TỐT NHẤT TẠI SHOPEE -----
+-------------------------------------------------------------
+--- CHÍNH SÁCH ĐẢM BẢO ---
+" Tất Cả Các Sản Phẩm Trước Khi Giao Tới Tay Khách Hàng Đều Được Cài Đặt Và Kiểm Tra Chất Lượng Sản Phẩm Để Tránh Trường Hợp Sản Phẩm Bị Lỗi Và Đảm Bảo Đạt Chất Lượng Tốt Nhất Cho Khách Hàng "
+-> " CAM KẾT ĐỔI TRẢ HÀNG TRONG VÒNG 3 NGÀY NẾU KHÔNG HÀI LÒNG VÀ ĐỔI TRẢ TRONG VÒNG 7 NGÀY NẾU SẢN PHẨM BỊ LỖI CỦA NHÀ SẢN XUẤT ---
+- Mã Sản Phẩm: ĐIỆN THOẠI XIAOMI MI6
+- Thương Hiệu: XIAOMI.
+- Xuất xứ: CHÍNH HÃNG PHÂN PHỐI CHÍNH THỨC TẠI VIỆT NAM.
+- Bảo Hành: 12 THÁNG VỚI THÂN MÁY - 6 THÁNG VỚI CỦ SẠC VÀ PIN Chính Hãng Thông Qua SeriNumber (S/N) Của Sản Phẩm.
+- Bộ sản phẩm bao gồm: Hộp, MÁY, SẠC, TAI NGHE , SÁCH HƯỚNG DẪN.',11,19,4,2,0),
+
+
+  (17,'Điện thoại xiaomi mi3 - 16gb - Ram 2Gb','1550000','/hinhsanpham/dienthoaivaphukien/xx9.jpg','/hinhsanpham/dienthoaivaphukien/xx9.jpg,/hinhsanpham/dienthoaivaphukien/xx10.jpg,/hinhsanpham/dienthoaivaphukien/xx11.jpg',
+ '----- SHOPEE MALL: TRUNG TÂM MUA SẮM TỐT NHẤT TẠI SHOPEE -----
+-------------------------------------------------------------
+--- CHÍNH SÁCH ĐẢM BẢO ---
+" Tất Cả Các Sản Phẩm Trước Khi Giao Tới Tay Khách Hàng Đều Được Cài Đặt Và Kiểm Tra Chất Lượng Sản Phẩm Để Tránh Trường Hợp Sản Phẩm Bị Lỗi Và Đảm Bảo Đạt Chất Lượng Tốt Nhất Cho Khách Hàng "
+-> " CAM KẾT ĐỔI TRẢ HÀNG TRONG VÒNG 3 NGÀY NẾU KHÔNG HÀI LÒNG VÀ ĐỔI TRẢ TRONG VÒNG 7 NGÀY NẾU SẢN PHẨM BỊ LỖI CỦA NHÀ SẢN XUẤT ---
+- Mã Sản Phẩm: ĐIỆN THOẠI XIAOMI MI6
+- Thương Hiệu: XIAOMI.
+- Xuất xứ: CHÍNH HÃNG PHÂN PHỐI CHÍNH THỨC TẠI VIỆT NAM.
+- Bảo Hành: 12 THÁNG VỚI THÂN MÁY - 6 THÁNG VỚI CỦ SẠC VÀ PIN Chính Hãng Thông Qua SeriNumber (S/N) Của Sản Phẩm.
+- Bộ sản phẩm bao gồm: Hộp, MÁY, SẠC, TAI NGHE , SÁCH HƯỚNG DẪN.',31,19,4,2,0),
+
+
+ (18,'Điện thoại Xiaomi Mi4 - 16Gb - Ram 3Gb','1900000','/hinhsanpham/dienthoaivaphukien/xx12.jpg','/hinhsanpham/dienthoaivaphukien/xx13.jpg,/hinhsanpham/dienthoaivaphukien/xx114.jpg,/hinhsanpham/dienthoaivaphukien/xx15.jpg,/hinhsanpham/dienthoaivaphukien/xx16.jpg',
+' Tất Cả Các Sản Phẩm Trước Khi Giao Tới Tay Khách Hàng Đều Được Cài Đặt Và Kiểm Tra Chất Lượng Sản Phẩm Để Tránh Trường Hợp Sản Phẩm Bị Lỗi Và Đảm Bảo Đạt Chất Lượng Tốt Nhất Cho Khách Hàng 
+-> " CAM KẾT ĐỔI TRẢ HÀNG TRONG VÒNG 3 NGÀY NẾU KHÔNG HÀI LÒNG VÀ ĐỔI TRẢ TRONG VÒNG 7 NGÀY NẾU SẢN PHẨM BỊ LỖI CỦA NHÀ SẢN XUẤT ---
+- Mã Sản Phẩm: ĐIỆN THOẠI XIAOMI MI6
+- Thương Hiệu: XIAOMI.
+- Xuất xứ: CHÍNH HÃNG PHÂN PHỐI CHÍNH THỨC TẠI VIỆT NAM.
+- Bảo Hành: 12 THÁNG VỚI THÂN MÁY - 6 THÁNG VỚI CỦ SẠC VÀ PIN Chính Hãng Thông Qua SeriNumber (S/N) Của Sản Phẩm.
+- Bộ sản phẩm bao gồm: Hộp, MÁY, SẠC, TAI NGHE , SÁCH HƯỚNG DẪN.',1,19,4,2,0),
+
+ (19,'Combo Điện thoại Xiaomi Redmi 4X 3GB 32GB (Đen)- Hãng phân phối chính thức + Tặng Bavapen B23 trị giá 389.000đ','3550000','/hinhsanpham/dienthoaivaphukien/xx17.jpg','/hinhsanpham/dienthoaivaphukien/xx17.jpg',
+' Giới thiệu sản phẩm Xiaomi Redmi 4X 3GB 32GB (Đen) - Hãng phân phối chính thức + Tặng Bavapen B23 trị giá 389.000 VNĐ',21,19,4,2,0),
+
+(20,'Điện Thoại Xiaomi Redmi 4A. Hàng chính hãng, máy cũ còn đẹp 90-95%','2350000','/hinhsanpham/dienthoaivaphukien/xx18.jpg','/hinhsanpham/dienthoaivaphukien/xx19.jpg,/hinhsanpham/dienthoaivaphukien/xx19.jpg,/hinhsanpham/dienthoaivaphukien/xx20.jpg',
+' Điện Thoại Redmi 4A . Hàng chính hãng, máy cũ còn đẹp 98%,shopee.vn/huyhangmobile hỗ trợ phí ship 50k cho mỗi đơn hàng khi giao hàng thành công',3,19,4,2,0),
+
+(21,'Điện thoại Xiaomi Redmi 4X 32GB Ram3G (Đen nhám) - Hãng phân phối chính thức','3.350.000','/hinhsanpham/dienthoaivaphukien/xx24.jpg','/hinhsanpham/dienthoaivaphukien/xx24.jpg,/hinhsanpham/dienthoaivaphukien/xx25.jpg,/hinhsanpham/dienthoaivaphukien/xx26.jpg',
+'  Đánh giá cấu hình nâng cấp của Xiaomi Redmi 4X
+Nhìn bề ngoài Xiaomi Redmi 4X chính hãng trông khá giống với Redmi 4, đặc biệt với màn hình cùng kích thước 5 inch với độ phân giải HD 720p. Điểm khác biệt trên Redmi 4X là đã được Xiaomi trang bị con chip mới Snapdragon 435 mang lại tốc độ xử lí nhanh hơn với 8 nhân xung nhịp 1.4 GHz. Bộ vi xử lý mới này cải tiến tốc độ LTE trên Xiaomi Redmi 4X lên cao hơn, tới 300 Mbps cho tốc độ download và 100 Mbps cho tốc độ upload.
+Các thông số còn lại của Xiaomi Redmi 4X cũng tương đồng với Redmi 4: camera chính 13 MP, camera selfie 5 MP, hỗ trợ 2 sim 2 sóng, hỗ trợ VoLTE, pin dung lượng cao 4.100 mAh. Máy được cài đặt sẵn Android 6.0 trên nền giao diện MIUI 8.',5,19,4,2,0),
+
+
+  
+(22,'ĐIỆN THOẠI XIAOMI MI6 - BLACK HÃNG PHÂN PHỐI CHÍNH THỨC','10700000','/hinhsanpham/dienthoaivaphukien/xm1.jpg',',/hinhsanpham/dienthoaivaphukien/xm1.jpg,/hinhsanpham/dienthoaivaphukien/xm2.jpg,/hinhsanpham/dienthoaivaphukien/xm3.jpg,/hinhsanpham/dienthoaivaphukien/xm4.jpg',
+ '----- SHOPEE MALL: TRUNG TÂM MUA SẮM TỐT NHẤT TẠI SHOPEE -----
+-------------------------------------------------------------
+--- CHÍNH SÁCH ĐẢM BẢO ---
+" Tất Cả Các Sản Phẩm Trước Khi Giao Tới Tay Khách Hàng Đều Được Cài Đặt Và Kiểm Tra Chất Lượng Sản Phẩm Để Tránh Trường Hợp Sản Phẩm Bị Lỗi Và Đảm Bảo Đạt Chất Lượng Tốt Nhất Cho Khách Hàng "
+-> " CAM KẾT ĐỔI TRẢ HÀNG TRONG VÒNG 3 NGÀY NẾU KHÔNG HÀI LÒNG VÀ ĐỔI TRẢ TRONG VÒNG 7 NGÀY NẾU SẢN PHẨM BỊ LỖI CỦA NHÀ SẢN XUẤT ---
+- Mã Sản Phẩm: ĐIỆN THOẠI XIAOMI MI6
+- Thương Hiệu: XIAOMI.
+- Xuất xứ: CHÍNH HÃNG PHÂN PHỐI CHÍNH THỨC TẠI VIỆT NAM.
+- Bảo Hành: 12 THÁNG VỚI THÂN MÁY - 6 THÁNG VỚI CỦ SẠC VÀ PIN Chính Hãng Thông Qua SeriNumber (S/N) Của Sản Phẩm.
+- Bộ sản phẩm bao gồm: Hộp, MÁY, SẠC, TAI NGHE , SÁCH HƯỚNG DẪN.',11,19,4,2,0),
+
+
+(23,'Điện thoại Xiaomi Mi 6 - Hàng Chính Hãng','1020000','/hinhsanpham/dienthoaivaphukien/x3.jpg','/hinhsanpham/dienthoaivaphukien/x3.jpg,/hinhsanpham/dienthoaivaphukien/x2.jpg,
+ /hinhsanpham/dienthoaivaphukien/x4.jpg,/hinhsanpham/dienthoaivaphukien/x1.jpg,/hinhsanpham/dienthoaivaphukien/x2.jpg',
+ '----- SHOPEE MALL: TRUNG TÂM MUA SẮM TỐT NHẤT TẠI SHOPEE -----
+-------------------------------------------------------------
+--- CHÍNH SÁCH ĐẢM BẢO ---
+" Tất Cả Các Sản Phẩm Trước Khi Giao Tới Tay Khách Hàng Đều Được Cài Đặt Và Kiểm Tra Chất Lượng Sản Phẩm Để Tránh Trường Hợp Sản Phẩm Bị Lỗi Và Đảm Bảo Đạt Chất Lượng Tốt Nhất Cho Khách Hàng "
+-> " CAM KẾT ĐỔI TRẢ HÀNG TRONG VÒNG 3 NGÀY NẾU KHÔNG HÀI LÒNG VÀ ĐỔI TRẢ TRONG VÒNG 7 NGÀY NẾU SẢN PHẨM BỊ LỖI CỦA NHÀ SẢN XUẤT ---
+- Mã Sản Phẩm: ĐIỆN THOẠI XIAOMI MI6
+- Thương Hiệu: XIAOMI.
+- Xuất xứ: CHÍNH HÃNG PHÂN PHỐI CHÍNH THỨC TẠI VIỆT NAM.
+- Bảo Hành: 12 THÁNG VỚI THÂN MÁY - 6 THÁNG VỚI CỦ SẠC VÀ PIN Chính Hãng Thông Qua SeriNumber (S/N) Của Sản Phẩm.
+- Bộ sản phẩm bao gồm: Hộp, MÁY, SẠC, TAI NGHE , SÁCH HƯỚNG DẪN.',4,19,4,2,0),
+
+(24,'Điện thoại Xiaomi Mi 6 - Hàng Chính Hãng','10000000','/hinhsanpham/dienthoaivaphukien/x3.jpg','/hinhsanpham/dienthoaivaphukien/x3.jpg,/hinhsanpham/dienthoaivaphukien/x2.jpg,
+ /hinhsanpham/dienthoaivaphukien/x4.jpg,/hinhsanpham/dienthoaivaphukien/x1.jpg,/hinhsanpham/dienthoaivaphukien/x2.jpg',
+ '----- SHOPEE MALL: TRUNG TÂM MUA SẮM TỐT NHẤT TẠI SHOPEE -----
+-------------------------------------------------------------
+--- CHÍNH SÁCH ĐẢM BẢO ---
+" Tất Cả Các Sản Phẩm Trước Khi Giao Tới Tay Khách Hàng Đều Được Cài Đặt Và Kiểm Tra Chất Lượng Sản Phẩm Để Tránh Trường Hợp Sản Phẩm Bị Lỗi Và Đảm Bảo Đạt Chất Lượng Tốt Nhất Cho Khách Hàng "
+-> " CAM KẾT ĐỔI TRẢ HÀNG TRONG VÒNG 3 NGÀY NẾU KHÔNG HÀI LÒNG VÀ ĐỔI TRẢ TRONG VÒNG 7 NGÀY NẾU SẢN PHẨM BỊ LỖI CỦA NHÀ SẢN XUẤT ---
+- Mã Sản Phẩm: ĐIỆN THOẠI XIAOMI MI6
+- Thương Hiệu: XIAOMI.
+- Xuất xứ: CHÍNH HÃNG PHÂN PHỐI CHÍNH THỨC TẠI VIỆT NAM.
+- Bảo Hành: 12 THÁNG VỚI THÂN MÁY - 6 THÁNG VỚI CỦ SẠC VÀ PIN Chính Hãng Thông Qua SeriNumber (S/N) Của Sản Phẩm.
+- Bộ sản phẩm bao gồm: Hộp, MÁY, SẠC, TAI NGHE , SÁCH HƯỚNG DẪN.',3,19,4,2,0),
+
+(25,'Điện thoại Xiaomi Mi 6 - Hàng Chính Hãng','11.000.000','/hinhsanpham/dienthoaivaphukien/x3.jpg','/hinhsanpham/dienthoaivaphukien/x3.jpg,/hinhsanpham/dienthoaivaphukien/x2.jpg,
+ /hinhsanpham/dienthoaivaphukien/x4.jpg,/hinhsanpham/dienthoaivaphukien/x1.jpg,/hinhsanpham/dienthoaivaphukien/x2.jpg',
+ '----- SHOPEE MALL: TRUNG TÂM MUA SẮM TỐT NHẤT TẠI SHOPEE -----
+-------------------------------------------------------------
+--- CHÍNH SÁCH ĐẢM BẢO ---
+" Tất Cả Các Sản Phẩm Trước Khi Giao Tới Tay Khách Hàng Đều Được Cài Đặt Và Kiểm Tra Chất Lượng Sản Phẩm Để Tránh Trường Hợp Sản Phẩm Bị Lỗi Và Đảm Bảo Đạt Chất Lượng Tốt Nhất Cho Khách Hàng "
+-> " CAM KẾT ĐỔI TRẢ HÀNG TRONG VÒNG 3 NGÀY NẾU KHÔNG HÀI LÒNG VÀ ĐỔI TRẢ TRONG VÒNG 7 NGÀY NẾU SẢN PHẨM BỊ LỖI CỦA NHÀ SẢN XUẤT ---
+- Mã Sản Phẩm: ĐIỆN THOẠI XIAOMI MI6
+- Thương Hiệu: XIAOMI.
+- Xuất xứ: CHÍNH HÃNG PHÂN PHỐI CHÍNH THỨC TẠI VIỆT NAM.
+- Bảo Hành: 12 THÁNG VỚI THÂN MÁY - 6 THÁNG VỚI CỦ SẠC VÀ PIN Chính Hãng Thông Qua SeriNumber (S/N) Của Sản Phẩm.
+- Bộ sản phẩm bao gồm: Hộp, MÁY, SẠC, TAI NGHE , SÁCH HƯỚNG DẪN.',19,19,4,2,0),
+
+(26,'Điện Thoại XIAOMI MI 5C 64GB (Nhập Khẩu)','4179000','/hinhsanpham/dienthoaivaphukien/xn0.jpg','/hinhsanpham/dienthoaivaphukien/xn0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/xn1.jpg,/hinhsanpham/dienthoaivaphukien/xn2.jpg,
+/hinhsanpham/dienthoaivaphukien/xn3.jpg','Bảo hành 12 tháng (Ngoại trừ nguồn, màn hình, cảm ứng...).
+Bao test 33 ngày nếu máy lỗi kỹ thuật do nhà sản xuất
+Phần mềm miễn phí suốt đời sản phẩm
+Để được hưởng chế độ bảo hành đặc biệt của Di Động Việt, quý khách có thể tham khảo thêm gói bảo hành Dcare Gold, Dcare Ivip.' ,13,19,4,2,0),
+
+
+(27,'Điện Thoại XIAOMI MI 5C 64GB (Nhập Khẩu)','4.179.000','/hinhsanpham/dienthoaivaphukien/xn0.jpg','/hinhsanpham/dienthoaivaphukien/xn0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/xn1.jpg,/hinhsanpham/dienthoaivaphukien/xn2.jpg,
+/hinhsanpham/dienthoaivaphukien/xn3.jpg','Bảo hành 12 tháng (Ngoại trừ nguồn, màn hình, cảm ứng...).
+Bao test 33 ngày nếu máy lỗi kỹ thuật do nhà sản xuất
+Phần mềm miễn phí suốt đời sản phẩm
+Để được hưởng chế độ bảo hành đặc biệt của Di Động Việt, quý khách có thể tham khảo thêm gói bảo hành Dcare Gold, Dcare Ivip.' ,4,19,4,2,0),
+ 
+ 
+ (28,'Điện Thoại XIAOMI MI 5C 64GB (Nhập Khẩu)','4179000','/hinhsanpham/dienthoaivaphukien/xn0.jpg','/hinhsanpham/dienthoaivaphukien/xn0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/xn1.jpg,/hinhsanpham/dienthoaivaphukien/xn2.jpg,
+/hinhsanpham/dienthoaivaphukien/xn3.jpg','Bảo hành 12 tháng (Ngoại trừ nguồn, màn hình, cảm ứng...).
+Bao test 33 ngày nếu máy lỗi kỹ thuật do nhà sản xuất
+Phần mềm miễn phí suốt đời sản phẩm
+Để được hưởng chế độ bảo hành đặc biệt của Di Động Việt, quý khách có thể tham khảo thêm gói bảo hành Dcare Gold, Dcare Ivip.' ,3,19,4,2,0),
+
+ (29,'Điện Thoại XIAOMI MI 5C 64GB (Nhập Khẩu)','4179000','/hinhsanpham/dienthoaivaphukien/xn0.jpg','/hinhsanpham/dienthoaivaphukien/xn0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/xn1.jpg,/hinhsanpham/dienthoaivaphukien/xn2.jpg,
+/hinhsanpham/dienthoaivaphukien/xn3.jpg','Bảo hành 12 tháng (Ngoại trừ nguồn, màn hình, cảm ứng...).
+Bao test 33 ngày nếu máy lỗi kỹ thuật do nhà sản xuất
+Phần mềm miễn phí suốt đời sản phẩm
+Để được hưởng chế độ bảo hành đặc biệt của Di Động Việt, quý khách có thể tham khảo thêm gói bảo hành Dcare Gold, Dcare Ivip.' ,1,19,4,2,0),
+
+
+ (30,'Điện Thoại XIAOMI MI 5C 64GB (Nhập Khẩu)','4179000','/hinhsanpham/dienthoaivaphukien/xn0.jpg','/hinhsanpham/dienthoaivaphukien/xn0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/xn1.jpg,/hinhsanpham/dienthoaivaphukien/xn2.jpg,
+/hinhsanpham/dienthoaivaphukien/xn3.jpg','Bảo hành 12 tháng (Ngoại trừ nguồn, màn hình, cảm ứng...).
+Bao test 33 ngày nếu máy lỗi kỹ thuật do nhà sản xuất
+Phần mềm miễn phí suốt đời sản phẩm
+Để được hưởng chế độ bảo hành đặc biệt của Di Động Việt, quý khách có thể tham khảo thêm gói bảo hành Dcare Gold, Dcare Ivip.' ,5,19,4,2,0),
+
+(31,'Điện thoại S-Mobile Eco New 2017','299000','/hinhsanpham/dienthoaivaphukien/s1.jpg','/hinhsanpham/dienthoaivaphukien/s2.jpg
+ ,/hinhsanpham/dienthoaivaphukien/s3.jpg,/hinhsanpham/dienthoaivaphukien/s4.jpg,
+/hinhsanpham/dienthoaivaphukien/s1.jpg','THIẾT KẾ NHỎ GỌN
+S-Mobile Eco được thiết kế kiểu dáng nhỏ gọn, dễ dàng cầm trong tay hoặc khi sử dụng bằng một tay.
+Lớp vỏ được làm từ chất liệu nhựa giúp giảm sốc khi điện thoại bị va đập và không gây nóng máy.
+
+ĐÈN PIN SOI TIỀN GIẢ
+Chức năng đặc biệt từ chiếc đèn pin soi tiền giả được tích hợp trên điện thoại S-Mobile Eco. Giúp bạn có thể phát hiện tiền giả một cách dễ dàng.
+
+FM RADIO
+S-Mobile Eco được tích hợp chức năng nghe Fm radio.
+
+TÍNH NĂNG GIẢI TRÍ
+S-Mobile hỗ trợ khe cắm thẻ nhớ có thể mở rộng đến 8GB cùng với các tính năng giải trí như: nghe nhạc mp3, mp4, đài Fm, hỗ trợ jack cắm 3.5mm, ghi âm…v.v…
+',11,14,24,2,0),
+
+
+(32,'Điện thoại S-Mobile Eco New 2017','399000','/hinhsanpham/dienthoaivaphukien/s1.jpg','/hinhsanpham/dienthoaivaphukien/s2.jpg
+ ,/hinhsanpham/dienthoaivaphukien/s3.jpg,/hinhsanpham/dienthoaivaphukien/s4.jpg,
+/hinhsanpham/dienthoaivaphukien/s1.jpg','THIẾT KẾ NHỎ GỌN
+S-Mobile Eco được thiết kế kiểu dáng nhỏ gọn, dễ dàng cầm trong tay hoặc khi sử dụng bằng một tay.
+Lớp vỏ được làm từ chất liệu nhựa giúp giảm sốc khi điện thoại bị va đập và không gây nóng máy.
+
+ĐÈN PIN SOI TIỀN GIẢ
+Chức năng đặc biệt từ chiếc đèn pin soi tiền giả được tích hợp trên điện thoại S-Mobile Eco. Giúp bạn có thể phát hiện tiền giả một cách dễ dàng.
+
+FM RADIO
+S-Mobile Eco được tích hợp chức năng nghe Fm radio.
+
+TÍNH NĂNG GIẢI TRÍ
+S-Mobile hỗ trợ khe cắm thẻ nhớ có thể mở rộng đến 8GB cùng với các tính năng giải trí như: nghe nhạc mp3, mp4, đài Fm, hỗ trợ jack cắm 3.5mm, ghi âm…v.v…
+',5,14,24,2,0),
+
+(33,'Điện thoại S-Mobile Eco New 2017','399000','/hinhsanpham/dienthoaivaphukien/s1.jpg','/hinhsanpham/dienthoaivaphukien/s2.jpg
+ ,/hinhsanpham/dienthoaivaphukien/s3.jpg,/hinhsanpham/dienthoaivaphukien/s4.jpg,
+/hinhsanpham/dienthoaivaphukien/s1.jpg','THIẾT KẾ NHỎ GỌN
+S-Mobile Eco được thiết kế kiểu dáng nhỏ gọn, dễ dàng cầm trong tay hoặc khi sử dụng bằng một tay.
+Lớp vỏ được làm từ chất liệu nhựa giúp giảm sốc khi điện thoại bị va đập và không gây nóng máy.
+
+ĐÈN PIN SOI TIỀN GIẢ
+Chức năng đặc biệt từ chiếc đèn pin soi tiền giả được tích hợp trên điện thoại S-Mobile Eco. Giúp bạn có thể phát hiện tiền giả một cách dễ dàng.
+
+FM RADIO
+S-Mobile Eco được tích hợp chức năng nghe Fm radio.
+
+TÍNH NĂNG GIẢI TRÍ
+S-Mobile hỗ trợ khe cắm thẻ nhớ có thể mở rộng đến 8GB cùng với các tính năng giải trí như: nghe nhạc mp3, mp4, đài Fm, hỗ trợ jack cắm 3.5mm, ghi âm…v.v…
+',5,14,24,2,0),
+
+(34,'Điện thoại C12 pin khủng xem TV 2 Sim 2 Sóng ,Điện thoại Land Rover C12 SẠC CHO MÁY KHÁC - MSN388123','340000','/hinhsanpham/dienthoaivaphukien/k0.jpg','/hinhsanpham/dienthoaivaphukien/k1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/k0.jpg,/hinhsanpham/dienthoaivaphukien/k2.jpg',
+'Điện thoại C12 pin khủng xem TV- Dòng sản phẩm mới nhất của hãng Điện thoại C12 pin khủng xem TV là sự kết hợp hoàn hảo của dòng điện thoại xem tivi và dòng điện thoại pin khủng sạc pin cho máy khác,Pin của Land Rover sử dụng công nghệ Lithium ion với dung lượng khủng 12.000 mAh, có thể nghe gọi thoải mái trong 10-20 ngày và thời gian chờ lên tới 2 tháng.
+',15,23,24,2,0),
+
+
+(35,'Điện thoại C12 pin khủng xem TV 2 Sim 2 Sóng ,Điện thoại Land Rover C12 SẠC CHO MÁY KHÁC - MSN388123','340000','/hinhsanpham/dienthoaivaphukien/k0.jpg','/hinhsanpham/dienthoaivaphukien/k1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/k0.jpg,/hinhsanpham/dienthoaivaphukien/k2.jpg',
+'Điện thoại C12 pin khủng xem TV- Dòng sản phẩm mới nhất của hãng Điện thoại C12 pin khủng xem TV là sự kết hợp hoàn hảo của dòng điện thoại xem tivi và dòng điện thoại pin khủng sạc pin cho máy khác,Pin của Land Rover sử dụng công nghệ Lithium ion với dung lượng khủng 12.000 mAh, có thể nghe gọi thoải mái trong 10-20 ngày và thời gian chờ lên tới 2 tháng.
+',3,23,24,2,0),
+
+(36,'Điện thoại C12 pin khủng xem TV 2 Sim 2 Sóng ,Điện thoại Land Rover C12 SẠC CHO MÁY KHÁC - MSN388123','340000','/hinhsanpham/dienthoaivaphukien/k0.jpg','/hinhsanpham/dienthoaivaphukien/k1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/k0.jpg,/hinhsanpham/dienthoaivaphukien/k2.jpg',
+'Điện thoại C12 pin khủng xem TV- Dòng sản phẩm mới nhất của hãng Điện thoại C12 pin khủng xem TV là sự kết hợp hoàn hảo của dòng điện thoại xem tivi và dòng điện thoại pin khủng sạc pin cho máy khác,Pin của Land Rover sử dụng công nghệ Lithium ion với dung lượng khủng 12.000 mAh, có thể nghe gọi thoải mái trong 10-20 ngày và thời gian chờ lên tới 2 tháng.
+',2,23,24,2,0),
+
+(37,'Điện thoại C12 pin khủng xem TV 2 Sim 2 Sóng ,Điện thoại Land Rover C12 SẠC CHO MÁY KHÁC - MSN388123','340.000','/hinhsanpham/dienthoaivaphukien/k0.jpg','/hinhsanpham/dienthoaivaphukien/k1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/k0.jpg,/hinhsanpham/dienthoaivaphukien/k2.jpg',
+'Điện thoại C12 pin khủng xem TV- Dòng sản phẩm mới nhất của hãng Điện thoại C12 pin khủng xem TV là sự kết hợp hoàn hảo của dòng điện thoại xem tivi và dòng điện thoại pin khủng sạc pin cho máy khác,Pin của Land Rover sử dụng công nghệ Lithium ion với dung lượng khủng 12.000 mAh, có thể nghe gọi thoải mái trong 10-20 ngày và thời gian chờ lên tới 2 tháng.
+',8,23,24,2,0),
+
+(38,'Điện thoại C12 pin khủng xem TV 2 Sim 2 Sóng ,Điện thoại Land Rover C12 SẠC CHO MÁY KHÁC - MSN388123','340000','/hinhsanpham/dienthoaivaphukien/k0.jpg','/hinhsanpham/dienthoaivaphukien/k1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/k0.jpg,/hinhsanpham/dienthoaivaphukien/k2.jpg',
+'Điện thoại C12 pin khủng xem TV- Dòng sản phẩm mới nhất của hãng Điện thoại C12 pin khủng xem TV là sự kết hợp hoàn hảo của dòng điện thoại xem tivi và dòng điện thoại pin khủng sạc pin cho máy khác,Pin của Land Rover sử dụng công nghệ Lithium ion với dung lượng khủng 12.000 mAh, có thể nghe gọi thoải mái trong 10-20 ngày và thời gian chờ lên tới 2 tháng.
+',5,23,24,2,0),
+
+(39,'Điện thoại C12 pin khủng xem TV 2 Sim 2 Sóng ,Điện thoại Land Rover C12 SẠC CHO MÁY KHÁC - MSN388123','340000','/hinhsanpham/dienthoaivaphukien/k0.jpg','/hinhsanpham/dienthoaivaphukien/k1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/k0.jpg,/hinhsanpham/dienthoaivaphukien/k2.jpg',
+'Điện thoại C12 pin khủng xem TV- Dòng sản phẩm mới nhất của hãng Điện thoại C12 pin khủng xem TV là sự kết hợp hoàn hảo của dòng điện thoại xem tivi và dòng điện thoại pin khủng sạc pin cho máy khác,Pin của Land Rover sử dụng công nghệ Lithium ion với dung lượng khủng 12.000 mAh, có thể nghe gọi thoải mái trong 10-20 ngày và thời gian chờ lên tới 2 tháng.
+',11,23,24,2,0),
+
+
+(40,'Điện thoại OPPO F1s - Hãng phân phối chính thức','4090000','/hinhsanpham/dienthoaivaphukien/o1.jpg','/hinhsanpham/dienthoaivaphukien/o1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/o2.jpg,/hinhsanpham/dienthoaivaphukien/o3.jpg,/hinhsanpham/dienthoaivaphukien/o4.jpg',
+'Bộ sản phẩm gồm: Điện thoại OPPO F1s, Củ sạc, Cáp sạc, Tai nghe, Sách hướng dẫn, Ốp lưng, Cây lấy sim, dán màn hình kèm máy (đã dán sẵn vào máy)
+Đỏ đam mê, Say nhiệt huyết
+Kiểu dáng thời trang – Màu sắc thời thượng
+Bộ ba sắc màu Dẫn Lối Tiên Phong
+Từng chi tiết tinh xảo được kết hợp tạo nên vẻ ngoài thời thượng và quyến rũ, giúp chiếc điện thoại 5.5 inch trông mong nhẹ thanh thoát. Mặt lưng kim loại phủ lớp màu thời thượng mang lại cảm giác tinh tế, tự tin hơn khi cầm trên tay.
+',5,18,3,2,0),
+
+(41,'Điện Thoại OPPO A37 Neo9 16GB – Hãng Phân phối chính thức','2850000','/hinhsanpham/dienthoaivaphukien/o5.jpg','/hinhsanpham/dienthoaivaphukien/o5.jpg
+ ,/hinhsanpham/dienthoaivaphukien/o6.jpg,/hinhsanpham/dienthoaivaphukien/o7.jpg,/hinhsanpham/dienthoaivaphukien/o5.jpg',
+'Bộ sản phẩm gồm: Điện thoại OPPO F1s, Củ sạc, Cáp sạc, Tai nghe, Sách hướng dẫn, Ốp lưng, Cây lấy sim, dán màn hình kèm máy (đã dán sẵn vào máy)
+Đỏ đam mê, Say nhiệt huyết
+Kiểu dáng thời trang – Màu sắc thời thượng
+Bộ ba sắc màu Dẫn Lối Tiên Phong
+Từng chi tiết tinh xảo được kết hợp tạo nên vẻ ngoài thời thượng và quyến rũ, giúp chiếc điện thoại 5.5 inch trông mong nhẹ thanh thoát. Mặt lưng kim loại phủ lớp màu thời thượng mang lại cảm giác tinh tế, tự tin hơn khi cầm trên tay.
+',8,18,3,2,0),
+
+(42,'Điện thoại OPPO F1s - Hãng phân phối chính thức','4090000','/hinhsanpham/dienthoaivaphukien/o1.jpg','/hinhsanpham/dienthoaivaphukien/o1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/o2.jpg,/hinhsanpham/dienthoaivaphukien/o3.jpg,/hinhsanpham/dienthoaivaphukien/o4.jpg',
+'Bộ sản phẩm gồm: Điện thoại OPPO F1s, Củ sạc, Cáp sạc, Tai nghe, Sách hướng dẫn, Ốp lưng, Cây lấy sim, dán màn hình kèm máy (đã dán sẵn vào máy)
+Đỏ đam mê, Say nhiệt huyết
+Kiểu dáng thời trang – Màu sắc thời thượng
+Bộ ba sắc màu Dẫn Lối Tiên Phong
+Từng chi tiết tinh xảo được kết hợp tạo nên vẻ ngoài thời thượng và quyến rũ, giúp chiếc điện thoại 5.5 inch trông mong nhẹ thanh thoát. Mặt lưng kim loại phủ lớp màu thời thượng mang lại cảm giác tinh tế, tự tin hơn khi cầm trên tay.
+',5,18,3,2,0),
+
+(43,'Điện Thoại OPPO A37 Neo9 16GB – Hãng Phân phối chính thức','2850000','/hinhsanpham/dienthoaivaphukien/o5.jpg','/hinhsanpham/dienthoaivaphukien/o5.jpg
+ ,/hinhsanpham/dienthoaivaphukien/o6.jpg,/hinhsanpham/dienthoaivaphukien/o7.jpg,/hinhsanpham/dienthoaivaphukien/o5.jpg',
+'Bộ sản phẩm gồm: Điện thoại OPPO F1s, Củ sạc, Cáp sạc, Tai nghe, Sách hướng dẫn, Ốp lưng, Cây lấy sim, dán màn hình kèm máy (đã dán sẵn vào máy)
+Đỏ đam mê, Say nhiệt huyết
+Kiểu dáng thời trang – Màu sắc thời thượng
+Bộ ba sắc màu Dẫn Lối Tiên Phong
+Từng chi tiết tinh xảo được kết hợp tạo nên vẻ ngoài thời thượng và quyến rũ, giúp chiếc điện thoại 5.5 inch trông mong nhẹ thanh thoát. Mặt lưng kim loại phủ lớp màu thời thượng mang lại cảm giác tinh tế, tự tin hơn khi cầm trên tay.
+',8,18,3,2,0),
+
+(44,'Điện thoại OPPO F1s - Hãng phân phối chính thức','4090000','/hinhsanpham/dienthoaivaphukien/o1.jpg','/hinhsanpham/dienthoaivaphukien/o1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/o2.jpg,/hinhsanpham/dienthoaivaphukien/o3.jpg,/hinhsanpham/dienthoaivaphukien/o4.jpg',
+'Bộ sản phẩm gồm: Điện thoại OPPO F1s, Củ sạc, Cáp sạc, Tai nghe, Sách hướng dẫn, Ốp lưng, Cây lấy sim, dán màn hình kèm máy (đã dán sẵn vào máy)
+Đỏ đam mê, Say nhiệt huyết
+Kiểu dáng thời trang – Màu sắc thời thượng
+Bộ ba sắc màu Dẫn Lối Tiên Phong
+Từng chi tiết tinh xảo được kết hợp tạo nên vẻ ngoài thời thượng và quyến rũ, giúp chiếc điện thoại 5.5 inch trông mong nhẹ thanh thoát. Mặt lưng kim loại phủ lớp màu thời thượng mang lại cảm giác tinh tế, tự tin hơn khi cầm trên tay.
+',2,18,3,2,0),
+
+(45,'Điện Thoại OPPO A37 Neo9 16GB – Hãng Phân phối chính thức','2850000','/hinhsanpham/dienthoaivaphukien/o5.jpg','/hinhsanpham/dienthoaivaphukien/o5.jpg
+ ,/hinhsanpham/dienthoaivaphukien/o6.jpg,/hinhsanpham/dienthoaivaphukien/o7.jpg,/hinhsanpham/dienthoaivaphukien/o5.jpg',
+'Bộ sản phẩm gồm: Điện thoại OPPO F1s, Củ sạc, Cáp sạc, Tai nghe, Sách hướng dẫn, Ốp lưng, Cây lấy sim, dán màn hình kèm máy (đã dán sẵn vào máy)
+Đỏ đam mê, Say nhiệt huyết
+Kiểu dáng thời trang – Màu sắc thời thượng
+Bộ ba sắc màu Dẫn Lối Tiên Phong
+Từng chi tiết tinh xảo được kết hợp tạo nên vẻ ngoài thời thượng và quyến rũ, giúp chiếc điện thoại 5.5 inch trông mong nhẹ thanh thoát. Mặt lưng kim loại phủ lớp màu thời thượng mang lại cảm giác tinh tế, tự tin hơn khi cầm trên tay.
+',10,18,3,2,0),
+
+(46,'Điện thoại OPPO F1s - Hãng phân phối chính thức','4090000','/hinhsanpham/dienthoaivaphukien/o1.jpg','/hinhsanpham/dienthoaivaphukien/o1.jpg
+ ,/hinhsanpham/dienthoaivaphukien/o2.jpg,/hinhsanpham/dienthoaivaphukien/o3.jpg,/hinhsanpham/dienthoaivaphukien/o4.jpg',
+'Bộ sản phẩm gồm: Điện thoại OPPO F1s, Củ sạc, Cáp sạc, Tai nghe, Sách hướng dẫn, Ốp lưng, Cây lấy sim, dán màn hình kèm máy (đã dán sẵn vào máy)
+Đỏ đam mê, Say nhiệt huyết
+Kiểu dáng thời trang – Màu sắc thời thượng
+Bộ ba sắc màu Dẫn Lối Tiên Phong
+Từng chi tiết tinh xảo được kết hợp tạo nên vẻ ngoài thời thượng và quyến rũ, giúp chiếc điện thoại 5.5 inch trông mong nhẹ thanh thoát. Mặt lưng kim loại phủ lớp màu thời thượng mang lại cảm giác tinh tế, tự tin hơn khi cầm trên tay.
+',35,18,3,2,0),
+
+(47,'Điện Thoại OPPO A37 Neo9 16GB – Hãng Phân phối chính thức','2850000','/hinhsanpham/dienthoaivaphukien/o5.jpg','/hinhsanpham/dienthoaivaphukien/o5.jpg
+ ,/hinhsanpham/dienthoaivaphukien/o6.jpg,/hinhsanpham/dienthoaivaphukien/o7.jpg,/hinhsanpham/dienthoaivaphukien/o5.jpg',
+'Bộ sản phẩm gồm: Điện thoại OPPO F1s, Củ sạc, Cáp sạc, Tai nghe, Sách hướng dẫn, Ốp lưng, Cây lấy sim, dán màn hình kèm máy (đã dán sẵn vào máy)
+Đỏ đam mê, Say nhiệt huyết
+Kiểu dáng thời trang – Màu sắc thời thượng
+Bộ ba sắc màu Dẫn Lối Tiên Phong
+Từng chi tiết tinh xảo được kết hợp tạo nên vẻ ngoài thời thượng và quyến rũ, giúp chiếc điện thoại 5.5 inch trông mong nhẹ thanh thoát. Mặt lưng kim loại phủ lớp màu thời thượng mang lại cảm giác tinh tế, tự tin hơn khi cầm trên tay.
+',81,18,3,2,0),
+
+
+(48,'Điện thoại iphone 7-128GB ( Techone ) ( màu đỏ)','17490000','/hinhsanpham/dienthoaivaphukien/i0.jpg','/hinhsanpham/dienthoaivaphukien/i0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/i1.jpg,/hinhsanpham/dienthoaivaphukien/i2.jpg,/hinhsanpham/dienthoaivaphukien/i3.jpg',
+'Điện thoaii ít tiền quá nên mua chơi vui.
+',3,15,25,2,0),
+
+
+(49,'Điện thoại iphone 7-128GB ( Techone ) ( màu đỏ)','17490000','/hinhsanpham/dienthoaivaphukien/i0.jpg','/hinhsanpham/dienthoaivaphukien/i0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/i1.jpg,/hinhsanpham/dienthoaivaphukien/i2.jpg,/hinhsanpham/dienthoaivaphukien/i3.jpg',
+'Điện thoaii ít tiền quá nên mua chơi vui.
+',3,15,25,2,0),
+
+
+(50,'Điện thoại iphone 7-128GB ( Techone ) ( màu đỏ)','17490000','/hinhsanpham/dienthoaivaphukien/i0.jpg','/hinhsanpham/dienthoaivaphukien/i0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/i1.jpg,/hinhsanpham/dienthoaivaphukien/i2.jpg,/hinhsanpham/dienthoaivaphukien/i3.jpg',
+'Điện thoaii ít tiền quá nên mua chơi vui.
+',4,15,25,2,0),
+
+
+
+(51,'Điện thoại iphone 7-128GB ( Techone ) ( màu đỏ)','17490000','/hinhsanpham/dienthoaivaphukien/i0.jpg','/hinhsanpham/dienthoaivaphukien/i0.jpg
+ ,/hinhsanpham/dienthoaivaphukien/i1.jpg,/hinhsanpham/dienthoaivaphukien/i2.jpg,/hinhsanpham/dienthoaivaphukien/i3.jpg',
+'Điện thoaii ít tiền quá nên mua chơi vui.
+',33,15,25,2,0),
+
+
+
+
+(52,'Bán sỉ Cáp OTG nối điện thoại , máy tính bảng với usb, usb 3G, phím chuột','7000','/hinhsanpham/dienthoaivaphukien/c0.jpg',
+ '/hinhsanpham/dienthoaivaphukien/c0.jpg,/hinhsanpham/dienthoaivaphukien/c1.jpg,/hinhsanpham/dienthoaivaphukien/c2.jpg,/hinhsanpham/dienthoaivaphukien/c3.jpg',
+ 'Giới thiệu sản phẩm Cáp OTG nối điện thoại , máy tính bảng với usb,.usb 3G, phím chuột.Chú ý: Cáp chỉ kết nối được nếu điện thoại và máy tính bảng có hỗ.trợ kết nối OTG, vui long kiểm tra kỹ điện thoại của bạn. Cáp OTG là một sản phẩm có những tính năng hấp dẫn từ một thiết bị.có hỗ trợ OTG sẽ mang lại cho bạn những trải nghiệm tuyệt vời. Bạn có thể kết nối thiết bị điện thoại hoặc máy tính bảng có cổng MicroUSB với chuột, bàn phím, thẻ nhớ USB để trao đổi dữ liệu hoặc sử dụng USB 3G để truy cập Internet. Với thiết kế nhỏ gọn, bạn có thể đem theo bên mình để sử dụng bất cứ lúc nào. Thêm vào đó được.làm bằng chất liệu nhựa dẻo và linh hoạt, cáp OTG sẽ là một phụ kiện không thể thiếu dành cho bạn.',11,22,0,2,0),
+ 
+ (53,'Bộ Sạc Arun U128 Micro USB SamSung, HTC, LG - Cáp Sạc Arun Chính Hãng','BỘ SẠC Bộ Sạc Arun U121X Micro USB SamSung, HTC, LG - Cáp Sạc Arun 
+SẠ ĐƯỢC TẤT CẢ CÁC DÒNG MÁY 
+HÀNG ĐẢM BẢO CHẤT LƯỢNG 
+GIÁ GỐC CHỈ 35KKKKK
+BẢO HÀNH 2 THÁNG
+Ở ĐÂU BÁN RẺ SHOP BÁN RẺ HƠN ','35000','/hinhsanpham/dienthoaivaphukien/b2.jpg',
+  '/hinhsanpham/dienthoaivaphukien/b1.jpg,/hinhsanpham/dienthoaivaphukien/b2.jpg,/hinhsanpham/dienthoaivaphukien/b0.jpg',10000,22,19,2,0),
+  
+  (54,'Cáp otg cho smartphone android|| cáp otg USB micro|| Cáp otg android ||CÁP OTG MICRO USB CHO ĐIỆN THOẠI ANDROID','9900','/hinhsanpham/dienthoaivaphukien/cc0.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/cc1.jpg,/hinhsanpham/dienthoaivaphukien/cc2.jpg,/hinhsanpham/dienthoaivaphukien/cc0.jpg',
+   'Cáp OTG micro USB  giúp bạn dễ dàng kết nối chuột, bàn phím, USB lưu trữ, Ổ cứng di động, tay cầm game với điện thoại Smart Phone Androi của mình....',11111,22,0,2,0),
+   
+  (55,'Cáp sạc và chuyển dữ liệu JOYROOM VAMPIRE for IPHONE (kiêm cáp OTG)','198000','/hinhsanpham/dienthoaivaphukien/cc3.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/cc4.jpg,/hinhsanpham/dienthoaivaphukien/cc3.jpg,/hinhsanpham/dienthoaivaphukien/cc5.jpg',
+   'Cáp hút điện VAMPIRE chính hãng JoyRoom - Sản phẩm mới nhất , vô cùng độc đáo của hãng JOYROOM , sẽ biến thiết bị chạy Android của bạn trở thành 1 cục pin dự phòng 
+Cáp VAMPIRE được thiết kế là 1 cáp 2 đầu sạc cho tất cả các loại điện thoại , điểm đặc biệt là đầu USB của cáp có gắn 1 chân Micro bên trong giúp bạn có thể hút điện của thiết bị khác khi cần ( có thể hút pin được từ điện thoại ,máy tính bảng có chân sạc Micro )
+Ngoài ra dây cáp còn có chức năng như 1 cổng OTG ,để kết nối điện thoại , máy tính bảng với chuột & bàn phím có cổng Micro',111,22,9,2,0),
+
+  (56,'Combo 5 Dây Quấn Bảo Vệ Cáp Sạc Và Tai Nghe Điện Thoại','20000','/hinhsanpham/dienthoaivaphukien/d0.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/d0.jpg,/hinhsanpham/dienthoaivaphukien/d1.jpg,/hinhsanpham/dienthoaivaphukien/d2.jpg,/hinhsanpham/dienthoaivaphukien/d3.jpg',
+   '- Một dây cáp, sạc, tai nghe bạn có thể sử dụng 2, 3, 4, ... dây kết hợp với nhau để tự sáng tạo, phối màu theo phong cách riêng tạo nên cá tính cho bản thân.
+- Tác dụng bảo vệ sạc, tai nghe điện thoại của bạn không bị đứt, gãy hay hư hỏng.
+- Màu sắc: nhiều màu sắc.
+- Kích thước: 50cm (chưa giãn ).
+- Xuất xứ: Trung Quốc.',1121,22,0,2,0),
+
+(57,'Cáp Sạc và chuyền dữ liệu Từ Hít Nam Châm giành cho iPhone 5, 6, 7 (dây cáp bộc thêm lớp vải dù cao cấp)','129000','/hinhsanpham/dienthoaivaphukien/cs0.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/cs1.jpg,/hinhsanpham/dienthoaivaphukien/cs2.jpg,/hinhsanpham/dienthoaivaphukien/cs3.jpg,/hinhsanpham/dienthoaivaphukien/cs4.jpg',
+   'Cáp sạc từ cho Iphone với đầu cáp kết nối được làm từ kim loại đúc nguyên khối (Fake làm bằng nhựa) . Đầu tiếp xúc được phủ bằng vàng 24k tăng cường độ nhanh cho kết nối .Lực hút nam châm rất mạnh, kết nối siêu nhanh ,Dòng Sạc ổn định lên được 2.4A cho phép sạc cả máy tính bảng ,chuyền dữ liệu rất nhanh .Không hề báo lỗi phụ kiện .Không hề có dòng điện sinh ra ở đầu cáp chỉ khi tiếp súc với đầu sạc mới sinh ra điện năng, an toàn sử dụng.
+Cáp sạc từ tính chuẩn 2in 1 Lightning các thiết bị di động Iphone5/6/7 , ipad....
+➡ Dây cáp được làm từ dây dù siêu bên , siêu dẻo dai . có 7 lõi đồng dòng sạc đạt được 2.4A .Có đèn Led thông báo online .Thiết kế thời trang có 3 mầu Silver, Gold , Gold Rose thần thánh
+Giao tận nơi nếu khách hàng không hài lòng có thể trả lại nhưng sẽ mất phí ship',321,22,0,2,0),
+
+
+
+(58,'Cáp sạc và truyền dữ liệu iphone 5/6','80000','/hinhsanpham/dienthoaivaphukien/cs5.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/cs5.jpg,/hinhsanpham/dienthoaivaphukien/cs6.jpg,/hinhsanpham/dienthoaivaphukien/cs7.jpg,/hinhsanpham/dienthoaivaphukien/cs8.jpg',
+   '',4,22,0,2,0),
+
+(59,'Cáp sạc và truyền dữ liệu iphone 5/6','80000','/hinhsanpham/dienthoaivaphukien/cs5.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/cs5.jpg,/hinhsanpham/dienthoaivaphukien/cs6.jpg,/hinhsanpham/dienthoaivaphukien/cs7.jpg,/hinhsanpham/dienthoaivaphukien/cs8.jpg',
+   '',6,22,0,2,0),
+   
+ 
+ (60,'Cáp sạc và truyền dữ liệu iphone 5/6','80000','/hinhsanpham/dienthoaivaphukien/cs5.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/cs5.jpg,/hinhsanpham/dienthoaivaphukien/cs6.jpg,/hinhsanpham/dienthoaivaphukien/cs7.jpg,/hinhsanpham/dienthoaivaphukien/cs8.jpg',
+   '',12,22,0,2,0),
+ 
+ (61,'Cáp sạc và truyền dữ liệu iphone 5/6','80000','/hinhsanpham/dienthoaivaphukien/cs5.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/cs5.jpg,/hinhsanpham/dienthoaivaphukien/cs6.jpg,/hinhsanpham/dienthoaivaphukien/cs7.jpg,/hinhsanpham/dienthoaivaphukien/cs8.jpg',
+   '',15,22,0,2,0),
+   
+ (62,'Pin samsung note 4','150000','/hinhsanpham/dienthoaivaphukien/p0.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/p0.jpg',
+   ' Made in Korea - Assembly in Vietnam',211,25,0,2,0),
+   
+   
+ (63,'CÓC XE HƠI REMAX 2 CỔNG USB CHÍNH HÃNG BOX','30000','/hinhsanpham/dienthoaivaphukien/pp0.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/pp0.jpg',
+   'Sạc có kể kết với cáp USB Đa năng nhiều đầu cắm hổ trợ cho các dòng máyiPhone,iPad,Samsung,Sony,Nokia,LG,Htc thuận tiện cho oto xe hơi của bạn.sạc xe hơi Remax giúp bạn hoàn thành tiện lợi nhất,Sạc trên xe ô tô tốt nhất hiện nay.
+Cá nhân con người hiện nay mức độ thông tin liên lạc ngày càng cao, những chiếc điện thoại hay máy tính bảng đã trở nên quá quen thuộc,cách nào đễ chúng duy trì được pin tốt hơn ?',11,25,0,2,0),
+
+(64,'cáp ip 5 6 7 đỏ','20.000','/hinhsanpham/dienthoaivaphukien/pp1.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/pp1.jpg,/hinhsanpham/dienthoaivaphukien/pp2.jpg',
+   'Cáp Sạc iphone  lingning MÀU ĐỎ, CHỐNG RỐI, XỊN,Giúp bạn truyền tải các dữ liệu từ điện thoại qua máy tính và ngược lại một cách nhanh chón, bạn có thể dễ dàng vừa sử dụng điện thoại vừa sạc pin,Nhờ có đường kính rộng và công nghệ giảm kháng của dây, Cáp Sạc cho tốc độ sạc nhanh nhất sẽ giúp bạn truyền dữ liệu qua lại từ máy tính qua điện thoại một cách ổn định nhất. ',333,25,0,2,0),
+   
+   (65,'cáp ip 5 6 7 đỏ','20000','/hinhsanpham/dienthoaivaphukien/pp1.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/pp1.jpg,/hinhsanpham/dienthoaivaphukien/pp2.jpg',
+   'Cáp Sạc iphone  lingning MÀU ĐỎ, CHỐNG RỐI, XỊN,Giúp bạn truyền tải các dữ liệu từ điện thoại qua máy tính và ngược lại một cách nhanh chón, bạn có thể dễ dàng vừa sử dụng điện thoại vừa sạc pin,Nhờ có đường kính rộng và công nghệ giảm kháng của dây, Cáp Sạc cho tốc độ sạc nhanh nhất sẽ giúp bạn truyền dữ liệu qua lại từ máy tính qua điện thoại một cách ổn định nhất. ',3133,25,0,2,0),
+   
+   (66,'CÓC XE HƠI REMAX 2 CỔNG USB CHÍNH HÃNG BOX','30000','/hinhsanpham/dienthoaivaphukien/pp0.jpg'
+   ,'/hinhsanpham/dienthoaivaphukien/pp0.jpg',
+   'Sạc có kể kết với cáp USB Đa năng nhiều đầu cắm hổ trợ cho các dòng máyiPhone,iPad,Samsung,Sony,Nokia,LG,Htc thuận tiện cho oto xe hơi của bạn.sạc xe hơi Remax giúp bạn hoàn thành tiện lợi nhất,Sạc trên xe ô tô tốt nhất hiện nay.
+Cá nhân con người hiện nay mức độ thông tin liên lạc ngày càng cao, những chiếc điện thoại hay máy tính bảng đã trở nên quá quen thuộc,cách nào đễ chúng duy trì được pin tốt hơn ?',114,25,0,2,0);
+
+
+
+
+INSERT INTO `chitietsanpham`(`MACHITIET`,`MASP`,`TENCHITIET`,`GIATRI`) VALUES
+(1,1,'Màn hình	','PLS TFT LCD, 5", qHD'),
+(2,1,'Hệ điều hành:','Android 6.0 (Marshmallow)'),
+(3,1,'Camera sau','8 MP'),
+(4,1,'Camera trước','5 MP'),
+(5,1,'CPU','MT6737 4 nhân'),
+(6,1,'RAM','1.5 GB'),
+(7,1,'Bộ nhớ trong','8 GB'),
+(8,1,'Hỗ trợ thẻ nhớ:','256 GB'),
+(9,1,'Thẻ SIM','2 SIM, Micro SIM'),
+(10,2,'Dung lượng pin','2600 mAh'),
+(11,2,'Màn hình','PLS TFT LCD, 5", qHD'),
+(12,2,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(13,2,'Camera sau','8 MP'),
+(14,2,'Camera trước','5 MP'),
+(15,2,'CPU','MT6737 4 nhân'),
+(16,2,'RAM','1.5 GB'),
+(17,2,'Bộ nhớ trong','8 GB'),
+(18,2,'Hỗ trợ thẻ nhớ','256 GB'),
+(19,2,'Thẻ SIM','2 SIM, Micro SIM'),
+(20,2,'Dung lượng pin','2600 mAh'),
+
+(21,3,'Màn hình','PLS LCD, 5.5", Full HD'),
+(22,3,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(23,3,'Camera sau','13 MP'),
+(24,3,'Camera trước','8 MP'),
+(25,3,'CPU','Exynos 7870 8 nhân 64-bit'),
+(26,3,'RAM','3 GB'),
+(27,3,'Bộ nhớ trong','32 GB'),
+(28,3,'Hỗ trợ thẻ nhớ:','256 GB'),
+(29,3,'Thẻ SIM','2 SIM, Nano SIM'),
+(30,3,'Dung lượng pin','3300 mAh'),
+
+(31,4,'Màn hình','PLS LCD, 5.5", Full HD'),
+(32,4,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(33,4,'Camera sau','13 MP'),
+(34,4,'Camera trước','8 MP'),
+(35,4,'CPU','Exynos 7870 8 nhân 64-bit'),
+(36,4,'RAM','3 GB'),
+(37,4,'Bộ nhớ trong','32 GB'),
+(38,4,'Hỗ trợ thẻ nhớ','256 GB'),
+(39,4,'Thẻ SIM','2 SIM, Nano SIM'),
+(40,4,'Dung lượng pin','3300 mAh'),
+
+(41,5,'Màn hình','PLS LCD, 5.5", Full HD'),
+(42,5,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(43,5,'Camera sau','13 MP'),
+(44,5,'Camera trước','8 MP'),
+(45,5,'CPU','Exynos 7870 8 nhân 64-bit'),
+(46,5,'RAM:','3 GB'),
+(47,5,'Bộ nhớ trong','32 GB'),
+(48,5,'Hỗ trợ thẻ nhớ','256 GB'),
+(49,5,'Thẻ SIM','2 SIM, Nano SIM'),
+(50,5,'Dung lượng pin','3300 mAh'),
+
+(51,6,'Công nghệ màn hình','Super AMOLED'),
+(52,6,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(53,6,'Màn hình rộng','	6.3'),
+(54,6,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(55,6,'Camera sau','Exynos 7870 8 nhân 64-bit'),
+(56,6,'Độ phân giải','2 camera 12 MP'),
+(57,6,'Quay phim','Quay phim 4K 2160p@24fps'),
+(58,6,'Đèn Flash','Có'),
+(59,6,'Độ phân giải','8 MP'),
+(60,6,'Videocall','Có'),
+(61,6,'Hệ điều hành','CPU'),
+(62,6,'Hệ điều hành','Android 7.1'),
+(63,6,'Chipset (hãng SX CPU)	Exynos 8895','8 nhân 64-bit'),
+(64,6,'Tốc độ CPU','4 nhân 2.3 GHz và 4 nhân 1.7 GHz'),
+(65,6,'RAM','6GB'),
+(66,6,'Bộ nhớ trong','256GB'),
+
+(67,7,'Công nghệ màn hình','Super AMOLED'),
+(68,7,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(69,7,'Màn hình rộng','	6.3'),
+(70,7,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(71,7,'Camera sau','Exynos 7870 8 nhân 64-bit'),
+(72,7,'Độ phân giải','2 camera 12 MP'),
+(73,7,'Quay phim','Quay phim 4K 2160p@24fps'),
+(74,7,'Đèn Flash','Có'),
+(75,7,'Độ phân giải','8 MP'),
+(76,7,'Videocall','Có'),
+(77,7,'Hệ điều hành','CPU'),
+(78,7,'Hệ điều hành','Android 7.1'),
+(79,7,'Chipset (hãng SX CPU) Exynos 8895','8 nhân 64-bit'),
+(80,7,'Tốc độ CPU','4 nhân 2.3 GHz và 4 nhân 1.7 GHz'),
+(81,7,'RAM','6GB'),
+(82,7,'Bộ nhớ trong','256GB'),
+
+(83,8,'Pin','300mAh'),
+(84,8,'Kích thước','148.9 x 68.1 x 8.0mm, 155g'),
+(85,8,'Màn hình','5.8” QHD Super AMOLED'),
+(86,8,'Mặt kính cảm ứng','Kính cường lực Corning® Gorilla® Glass 5 ở cả 2 mặt'),
+(87,8,'Vi xử lý','8 nhân (4 nhân 2.3GHz + 4 nhân 1.7GHz), 64 bit'),
+(88,8,'Công nghệ Vi xử lý','Vi xử lý 10nm'),
+(89,8,'Camera','Công nghệ Dual Pixel 12MP (F1.7), chống rung quang học OIS + 8MP AF (F1.7)'),
+(90,8,'RAM','4GB'),
+(91,8,'Bộ nhớ trong','64GB'),
+(92,8,'Hệ điều hành','Android 7.0 (Nougat)'),
+
+
+(93,9,'Công nghệ màn hình','Super AMOLED'),
+(94,9,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(95,9,'Màn hình rộng ','5.8"'),
+(96,9,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(97,9,'Độ phân giải','12 MP'),
+(98,9,'Quay phim ',' Quay phim 4K 2160p@60fps'),
+(99,9,'Đèn Flash',' Có'),
+(100,9,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+(101,9,'Hệ điều hành','Android 7.0'),
+(102,9,'Chipset (hãng SX CPU)','Exynos 8895 8 nhân 64-bit'),
+(103,9,'RAM','4 GB'),
+(104,9,'Bộ nhớ trong','64 GB'),
+(105,9,'SIM ','2 Nano SIM'),
+
+(93,10,'Công nghệ màn hình','Super AMOLED'),
+(94,10,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(95,10,'Màn hình rộng ','5.8"'),
+(96,10,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(97,10,'Độ phân giải','12 MP'),
+(98,10,'Quay phim',' Quay phim 4K 2160p@60fps'),
+(99,10,'Đèn Flash','Có'),
+(100,10,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+(101,10,'Hệ điều hành','Android 7.0'),
+(102,10,'Chipset (hãng SX CPU)','Exynos 8895 8 nhân 64-bit'),
+(103,10,'RAM','4 GB'),
+(104,10,'Bộ nhớ trong','64 GB'),
+(105,10,'SIM ','2 Nano SIM'),
+
+(106,11,'Công nghệ màn hình','Super AMOLED'),
+(107,11,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(108,11,'Màn hình rộng ','5.8"'),
+(109,11,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(110,11,'Độ phân giải','12 MP'),
+(111,11,'Quay phim',' Quay phim 4K 2160p@60fps'),
+(112,11,'Đèn Flash',' Có'),
+(113,11,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+(114,11,'Hệ điều hành','Android 7.0'),
+(115,11,'Chipset (hãng SX CPU)','Exynos 8895 8 nhân 64-bit'),
+(116,11,'RAM','4 GB'),
+(117,11,'Bộ nhớ trong','64 GB'),
+(118,11,'SIM ','2 Nano SIM'),
+
+(119,12,'Công nghệ màn hình','Super AMOLED'),
+(120,12,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(121,12,'Màn hình rộng','5.8"'),
+(122,12,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(123,12,'Độ phân giải','12 MP'),
+(124,12,'Quay phim','Quay phim 4K 2160p@60fps'),
+(125,12,'Đèn Flash','Có'),
+(126,12,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+(127,12,'Hệ điều hành','Android 7.0'),
+(128,12,'Chipset (hãng SX CPU)','Exynos 8895 8 nhân 64-bit'),
+(129,12,'RAM','4 GB'),
+(130,12,'Bộ nhớ trong','64 GB'),
+(131,12,'SIM ','2 Nano SIM'),
+
+(132,13,'Công nghệ màn hình','Super AMOLED'),
+(133,13,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(134,13,'Màn hình rộng','5.8"'),
+(135,13,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(136,13,'Độ phân giải','12 MP'),
+(137,13,'Quay phim','Quay phim 4K 2160p@60fps'),
+(138,13,'Đèn Flash',' Có'),
+(139,13,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+(140,13,'Hệ điều hành','Android 7.0'),
+(141,13,'Chipset (hãng SX CPU)','Exynos 8895 8 nhân 64-bit'),
+(142,13,'RAM','4 GB'),
+(143,13,'Bộ nhớ trong','64 GB'),
+(144,13,'SIM ','2 Nano SIM'),
+
+(145,14,'Công nghệ màn hình','Super AMOLED'),
+(146,14,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(147,14,'Màn hình rộng ','5.8"'),
+(148,14,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(149,14,'Độ phân giải','12 MP'),
+(150,14,'Quay phim','Quay phim 4K 2160p@60fps'),
+(151,14,'Đèn Flash','Có'),
+(152,14,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+(153,14,'Hệ điều hành','Android 7.0'),
+(154,14,'Chipset (hãng SX CPU)','Exynos 8895 8 nhân 64-bit'),
+(155,14,'RAM','4 GB'),
+(156,14,'Bộ nhớ trong','64 GB'),
+(157,14,'SIM','2 Nano SIM'),
+
+(158,15,'Công nghệ màn hình','Super AMOLED'),
+(159,15,'Độ phân giải','2K (1440 x 2960 Pixels)'),
+(160,15,'Màn hình rộng ','5.8"'),
+(161,15,'Mặt kính cảm ứng','Corning Gorilla Glass 5'),
+(162,15,'Độ phân giải  ','12 MP'),
+(163,15,'Quay phim',' Quay phim 4K 2160p@60fps'),
+(164,15,'Đèn Flash',' Có'),
+(165,15,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+(166,15,'Hệ điều hành','Android 7.0'),
+(167,15,'Chipset (hãng SX CPU)','Exynos 8895 8 nhân 64-bit'),
+(168,15,'RAM','4 GB'),
+(169,15,'Bộ nhớ trong','64 GB'),
+(170,15,'SIM ','2 Nano SIM'),
+
+(171,16,'Công nghệ màn hình','IPS LCD'),
+(172,16,'Độ phân giải','Full HD (1080 x 1920 pixels)'),
+(173,16,'Màn hình rộng','5.15""'),
+(174,16,'Mặt kính cảm ứng:','Kính cường lực'),
+(175,16,'Độ phân giải','2 camera 12 MP'),
+(176,16,'Quay phim','Quay phim 4K 2160p@30fps'),
+(177,16,'Đèn Flash',' Đèn LED 2 tông màu'),
+(178,16,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+(179,16,'Hệ điều hành','Android 7.0'),
+(180,16,'RAM','6 GB'),
+(181,16,'Bộ nhớ trong','64 GB'),
+
+(182,17,'Hệ điều hành','ICPU'),
+(183,17,'Chipset','Krait 400 (2.3GHz Quad-core)'),
+(184,17,'Số core','Quad Core (4 nhân)"'),
+(185,17,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(186,17,'Bộ xử lý đồ hoạ','Adreno 330'),
+(187,17,'Kích thước màn hình','5inch'),
+(188,17,'Độ phân giải màn hình','1080 x 1920pixels'),
+(189,17,'Camera sau','13Megapixel'),
+(190,17,'Hệ điều hành','Android 7.0'),
+(191,17,'RAM','6 GB'),
+(192,17,'Bộ nhớ trong','256 GB'),
+
+(193,18,'Công nghệ màn hình','IPS LCD'),
+(194,18,'Độ phân giải','Full HD (1080 x 1920 pixels)'),
+(195,18,'Màn hình rộng ','5.15""'),
+(196,18,'Mặt kính cảm ứng','Kính cường lực'),
+(197,18,'Độ phân giải','2 camera 12 MP'),
+(198,18,'Quay phim',' Quay phim 4K 2160p@30fps'),
+(199,18,'Đèn Flash',' Đèn LED 2 tông màu'),
+(200,18,'Chụp ảnh nâng cao','Ảnh Raw, Lấy nét theo pha (EIS), Tự động lấy nét'),
+
+(201,19,'Hệ điều hành','ICPU'),
+(202,19,'Chipset','Krait 400 (2.3GHz Quad-core)'),
+(203,19,'Số core','Quad Core (4 nhân)"'),
+(204,19,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(205,19,'Bộ xử lý đồ hoạ','Adreno 330'),
+(206,19,'Kích thước màn hình',' 5inch'),
+(207,19,'Độ phân giải màn hình','1080 x 1920pixels'),
+
+
+(208,20,'Hệ điều hành','ICPU'),
+(209,20,'Chipset','Krait 400 (2.3GHz Quad-core)'),
+(210,20,'Số core ','Quad Core (4 nhân)"'),
+(211,20,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(212,20,'Bộ xử lý đồ hoạ','Adreno 330'),
+(213,20,'Kích thước màn hình',' 5inch'),
+(214,20,'Độ phân giải màn hình','1080 x 1920pixels'),
+
+(215,21,'Kích thước màn hình',' 5inch'),
+(216,21,'Độ phân giải màn hình','1080 x 1920pixels'),
+(217,21,'Camera sau','13Megapixel'),
+(218,21,'Hệ điều hành','Android 7.0'),
+(219,21,'RAM','6 GB'),
+(220,21,'Bộ nhớ trong','256 GB'),
+
+(221,22,'Bộ xử lý đồ hoạ','Adreno 330'),
+(222,22,'Kích thước màn hình:','5inch'),
+(223,22,'Độ phân giải màn hình','1080 x 1920pixels'),
+(224,22,'Hệ điều hành','ICPU'),
+(225,22,'Chipset','Krait 400 (2.3GHz Quad-core)'),
+
+(226,23,'Bộ xử lý đồ hoạ','Adreno 330'),
+(227,23,'Kích thước màn hình:',' 5inch'),
+(228,23,'Độ phân giải màn hình	','1080 x 1920pixels'),
+(229,23,'Hệ điều hành','ICPU'),
+(230,23,'Chipset','Krait 400 (2.3GHz Quad-core)'),
+
+(231,24,'Camera sau','13Megapixel'),
+(232,24,'Hệ điều hành','Android 7.0'),
+(233,24,'RAM','6 GB'),
+(234,24,'Bộ nhớ trong','256 GB'),
+
+(235,25,'Camera sau','13Megapixel'),
+(236,25,'Hệ điều hành','Android 7.0'),
+(237,25,'RAM','6 GB'),
+(238,25,'Bộ nhớ trong','256 GB'),
+(239,25,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(240,25,'Bộ xử lý đồ hoạ','Adreno 330'),
+(241,25,'Kích thước màn hình',' 5inch'),
+(242,25,'Độ phân giải màn hình','1080 x 1920pixels'),
+
+(243,26,'Camera sau','13Megapixel'),
+(244,26,'Hệ điều hành','Android 7.0'),
+(245,26,'RAM','6 GB'),
+(246,26,'Bộ nhớ trong','256 GB'),
+(247,26,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(248,26,'Bộ xử lý đồ hoạ','Adreno 330'),
+(249,26,'Kích thước màn hình',' 5inch'),
+(250,26,'Độ phân giải màn hình','1080 x 1920pixels'),
+
+(251,27,'Camera sau','13Megapixel'),
+(252,27,'Hệ điều hành','Android 7.0'),
+(253,27,'RAM','6 GB'),
+(254,27,'Bộ nhớ trong','256 GB'),
+(255,27,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(256,27,'Bộ xử lý đồ hoạ','Adreno 330'),
+(257,27,'Kích thước màn hình',' 5inch'),
+(258,27,'Độ phân giải màn hình','1080 x 1920pixels'),
+
+(259,27,'Camera sau','13Megapixel'),
+(260,27,'Hệ điều hành','Android 7.0'),
+(261,27,'RAM','6 GB'),
+(262,27,'Bộ nhớ trong','256 GB'),
+(263,27,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(264,27,'Bộ xử lý đồ hoạ','Adreno 330'),
+
+(265,28,'Camera sau','13Megapixel'),
+(266,28,'Hệ điều hành','Android 7.0'),
+(267,28,'RAM','6 GB'),
+(268,28,'Bộ nhớ trong','256 GB'),
+(269,28,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(270,28,'Bộ xử lý đồ hoạ','Adreno 330'),
+(271,28,'Kích thước màn hình',' 5inch'),
+(272,28,'Độ phân giải màn hình','1080 x 1920pixels'),
+
+(273,29,'Camera sau','13Megapixel'),
+(274,29,'Hệ điều hành','Android 7.0'),
+(275,29,'RAM','6 GB'),
+(276,29,'Bộ nhớ trong','256 GB'),
+(277,29,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(278,29,'Bộ xử lý đồ hoạ','Adreno 330'),
+(279,29,'Kích thước màn hình',' 5inch'),
+(280,29,'Độ phân giải màn hình','1080 x 1920pixels'),
+
+(281,30,'Camera sau','13Megapixel'),
+(282,30,'Hệ điều hành ','Android 7.0'),
+(283,30,'RAM','6 GB'),
+(284,30,'Bộ nhớ trong','256 GB'),
+(285,30,'Hệ điều hành','Android OS, v4.2 (Jelly Bean)'),
+(286,30,'Bộ xử lý đồ hoạ ','Adreno 330'),
+(287,30,'Kích thước màn hình',' 5inch'),
+(288,30,'Độ phân giải màn hình','1080 x 1920pixels'),
+
+(289,31,'Camera Back','1 to 5MP'),
+(290,31,'Camera trước ','Không có Camera'),
+(291,31,'Điều kiện','Export'),
+(292,31,'Screen Size (inches)','1.8'),
+(293,31,'Mẫu mã','S-Mobile Eco New 2017'),
+(294,31,'Network Connections ','2G - EDGE'),
+(295,31,'Hệ điều hành',' Other'),
+(296,31,'Operating System Version','Not Specified'),
+
+(297,32,'Camera Back ','1 to 5MP'),
+(298,32,'Camera trước','Không có Camera'),
+(299,32,'Điều kiện','Export'),
+(300,32,'Screen Size (inches)','1.8'),
+(301,32,'Mẫu mã','S-Mobile Eco New 2017'),
+(302,32,'Network Connections ','2G - EDGE'),
+(303,32,'Hệ điều hành',' Other'),
+(304,32,'Operating System Version','Not Specified'),
+
+(305,33,'Camera Back','1 to 5MP'),
+(306,33,'Camera trước','Không có Camera'),
+(307,33,'Điều kiện','Export'),
+(308,33,'Screen Size (inches)','1.8'),
+(309,33,'Mẫu mã','S-Mobile Eco New 2017'),
+(310,33,'Network Connections ','2G - EDGE'),
+(311,33,'Hệ điều hành',' Other'),
+(312,33,'Operating System Version','Not Specified'),
+
+(313,34,'Số sim sử dụng','2 sim (2 sóng online)'),
+(314,34,'Thẻ nhớ hỗ trợ ','MicroSD'),
+(315,34,'• Chụp ảnh camera sau','1.0 MP'),
+(316,34,'Screen Size (inches)','1.8'),
+(317,34,'Mẫu mã','S-Mobile Eco New 2017'),
+(318,34,'Network Connections ','2G - EDGE'),
+(319,34,'Hệ điều hành',' Other'),
+(320,34,'Operating System Version','Not Specified'),
+
+(321,35,'Camera Back','1 to 5MP'),
+(322,35,'Thẻ nhớ hỗ trợ ','MicroSD'),
+(323,35,'• Chụp ảnh camera sau','1.0 MP'),
+(324,35,'Screen Size (inches)','1.8'),
+(325,35,'Mẫu mã','S-Mobile Eco New 2017'),
+(326,35,'Network Connections ','2G - EDGE'),
+(327,35,'Hệ điều hành',' Other'),
+(328,35,'Operating System Version','Not Specified'),
+
+(329,36,'Camera Back','1 to 5MP'),
+(330,36,'Thẻ nhớ hỗ trợ ','MicroSD'),
+(331,36,'• Chụp ảnh camera sau','1.0 MP'),
+(332,36,'Screen Size (inches) ','1.8'),
+(333,36,'Mẫu mã','S-Mobile Eco New 2017'),
+(334,36,'Network Connections ','2G - EDGE'),
+(335,36,'Hệ điều hành',' Other'),
+(336,36,'Operating System Version','Not Specified'),
+
+(337,37,'Camera Back','1 to 5MP'),
+(338,37,'Thẻ nhớ hỗ trợ ','MicroSD'),
+(339,37,'• Chụp ảnh camera sau','1.0 MP'),
+(340,37,'Screen Size (inches) ','1.8'),
+(341,37,'Mẫu mã','S-Mobile Eco New 2017'),
+(342,37,'Network Connections ','2G - EDGE'),
+(343,37,'Hệ điều hành',' Other'),
+(344,37,'Operating System Version','Not Specified'),
+
+(345,38,'Camera Back','1 to 5MP'),
+(346,38,'Thẻ nhớ hỗ trợ ','MicroSD'),
+(347,38,'• Chụp ảnh camera sau','1.0 MP'),
+(348,38,'Screen Size (inches)','1.8'),
+(349,38,'Mẫu mã','S-Mobile Eco New 2017'),
+(350,38,'Network Connections ','2G - EDGE'),
+(351,38,'Hệ điều hành',' Other'),
+(352,38,'Operating System Version','Not Specified'),
+
+(353,39,'Camera Back','1 to 5MP'),
+(354,39,'Thẻ nhớ hỗ trợ ','MicroSD'),
+(355,39,'• Chụp ảnh camera sau','1.0 MP'),
+(356,39,'Screen Size (inches)','1.8'),
+(357,39,'Mẫu mã','S-Mobile Eco New 2017'),
+(358,39,'Network Connections ','2G - EDGE'),
+(359,39,'Hệ điều hành',' Other'),
+(360,39,'Operating System Version','Not Specified'),
+
+(353,40,'Màn hình','PS LCD, 6", Full HD'),
+(354,40,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(355,40,'• Camera sau','16 MP'),
+(356,40,'Camera trước','16 MP và 8 MP'),
+(357,40,'CPU','Snapdragon 653 8 nhân 64-bit'),
+(358,40,'RAM ','4 GB'),
+(359,40,'Bộ nhớ trong:',' 64 GB'),
+(360,40,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(361,41,'Màn hình','PS LCD, 6", Full HD'),
+(362,41,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(363,41,'• Camera sau','16 MP'),
+(364,41,'Camera trước','16 MP và 8 MP'),
+(365,41,'CPU','Snapdragon 653 8 nhân 64-bit'),
+(366,41,'RAM ','4 GB'),
+(367,41,'Bộ nhớ trong',' 64 GB'),
+(368,41,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(369,42,'Màn hình','PS LCD, 6", Full HD'),
+(370,42,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(371,42,'• Camera sau','16 MP'),
+(372,42,'Camera trước','16 MP và 8 MP'),
+(373,42,'CPU','Snapdragon 653 8 nhân 64-bit'),
+(374,42,'RAM ','4 GB'),
+(375,42,'Bộ nhớ trong',' 64 GB'),
+(376,42,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(377,43,'Màn hình','PS LCD, 6", Full HD'),
+(378,43,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(379,43,'• Camera sau','16 MP'),
+(380,43,'Camera trước','16 MP và 8 MP'),
+(381,43,'CPU','Snapdragon 653 8 nhân 64-bit'),
+(382,43,'RAM','4 GB'),
+(383,43,'Bộ nhớ trong',' 64 GB'),
+(384,43,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(385,44,'Màn hình','PS LCD, 6", Full HD'),
+(386,44,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(387,44,'• Camera sau','16 MP'),
+(388,44,'Camera trước','16 MP và 8 MP'),
+(389,44,'CPU','Snapdragon 653 8 nhân 64-bit'),
+(390,44,'RAM','4 GB'),
+(391,44,'Bộ nhớ trong',' 64 GB'),
+(392,44,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(393,45,'Màn hình','PS LCD, 6", Full HD'),
+(394,45,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(395,45,'• Camera sau','16 MP'),
+(396,45,'Camera trước','16 MP và 8 MP'),
+(397,45,'CPU','Snapdragon 653 8 nhân 64-bit'),
+(398,45,'RAM','4 GB'),
+(399,45,'Bộ nhớ trong',' 64 GB'),
+(400,45,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(401,46,'Màn hình','PS LCD, 6", Full HD'),
+(402,46,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(403,46,'• Camera sau','16 MP'),
+(404,46,'Camera trước','16 MP và 8 MP'),
+(405,46,'CPU','Snapdragon 653 8 nhân 64-bit'),
+(406,46,'RAM','4 GB'),
+(407,46,'Bộ nhớ trong',' 64 GB'),
+(408,46,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(409,47,'Màn hình','PS LCD, 6", Full HD'),
+(410,47,'Hệ điều hành','Android 6.0 (Marshmallow)'),
+(411,47,'• Camera sau','16 MP'),
+(412,47,'Camera trước','16 MP và 8 MP'),
+(413,47,'CPU','Snapdragon 653 8 nhân 64-bit'),
+(414,47,'RAM','4 GB'),
+(415,47,'Bộ nhớ trong',' 64 GB'),
+(416,47,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(417,48,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(418,48,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(419,48,'Màn hình rộng','4.7"'),
+(420,48,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(421,48,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(422,48,'Quay phim','4 GB'),
+(423,48,'Bộ nhớ trong',' 64 GB'),
+(424,48,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(425,49,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(426,49,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(427,49,'Màn hình rộng','4.7"'),
+(428,49,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(429,49,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(430,49,'Quay phim','4 GB'),
+(431,49,'Bộ nhớ trong',' 64 GB'),
+(432,49,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(433,50,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(434,50,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(435,50,'Màn hình rộng','4.7"'),
+(436,50,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(437,50,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(438,50,'Quay phim','4 GB'),
+(439,50,'Bộ nhớ trong',' 64 GB'),
+(440,50,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(441,51,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(442,51,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(443,51,'Màn hình rộng','4.7"'),
+(444,51,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(445,51,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(446,51,'Quay phim','4 GB'),
+(447,51,'Bộ nhớ trong',' 64 GB'),
+(448,51,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(441,52,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(442,52,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(443,52,'Màn hình rộng','4.7"'),
+(444,52,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(445,52,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(446,52,'Quay phim','4 GB'),
+(447,52,'Bộ nhớ trong',' 64 GB'),
+(448,52,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(449,53,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(450,53,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(451,53,'Màn hình rộng','4.7"'),
+(452,53,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(453,53,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(454,53,'Quay phim','4 GB'),
+(455,53,'Bộ nhớ trong',' 64 GB'),
+(456,53,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(457,54,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(458,54,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(459,54,'Màn hình rộng','4.7"'),
+(460,54,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(461,54,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(462,54,'Quay phim','4 GB'),
+(463,54,'Bộ nhớ trong:',' 64 GB'),
+(464,54,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(465,55,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(466,55,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(467,55,'Màn hình rộng','4.7"'),
+(468,55,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(469,55,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(470,55,'Quay phim','4 GB'),
+(471,55,'Bộ nhớ trong',' 64 GB'),
+(472,55,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(473,56,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(474,56,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(475,56,'Màn hình rộng','4.7"'),
+(476,56,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(477,56,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(478,56,'Quay phim','4 GB'),
+(479,56,'Bộ nhớ trong','64 GB'),
+(480,56,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(481,57,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(482,57,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(483,57,'Màn hình rộng','4.7"'),
+(484,57,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(485,57,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(486,57,'Quay phim','4 GB'),
+(487,57,'Bộ nhớ trong',' 64 GB'),
+(488,57,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(489,58,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(490,58,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(491,58,'Màn hình rộng','4.7"'),
+(492,58,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(493,58,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(494,58,'Quay phim','4 GB'),
+(495,58,'Bộ nhớ trong',' 64 GB'),
+(496,58,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(497,59,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(498,59,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(499,59,'Màn hình rộng','4.7"'),
+(500,59,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(501,59,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(502,59,'Quay phim','4 GB'),
+(503,59,'Bộ nhớ trong',' 64 GB'),
+(504,59,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(505,60,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(506,60,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(507,60,'Màn hình rộng','4.7"'),
+(508,60,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(509,60,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(510,60,'Quay phim','4 GB'),
+(511,60,'Bộ nhớ trong',' 64 GB'),
+(512,60,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(513,61,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(514,61,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(515,61,'Màn hình rộng','4.7"'),
+(516,61,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(517,61,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(518,61,'Quay phim','4 GB'),
+(519,61,'Bộ nhớ trong',' 64 GB'),
+(520,61,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(521,62,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(522,62,'Độ phân giải','HD (1334 x 750 Pixels)'),
+(523,62,'Màn hình rộng','4.7"'),
+(524,62,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(525,62,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(526,62,'Quay phim','4 GB'),
+(527,62,'Bộ nhớ trong',' 64 GB'),
+(528,62,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G'),
+
+(529,63,'Công nghệ màn hình', 'LED-backlit IPS LCD'),
+(530,63,'Độ phân giả','HD (1334 x 750 Pixels)'),
+(531,63,'Màn hình rộng','4.7"'),
+(532,63,'Mặt kính cảm ứng','Kính oleophobic (ion cường lực)'),
+(533,63,'Độ phân giải','Quay phim 4K 2160p@30fps'),
+(534,63,'Quay phim: ','4 GB'),
+(535,63,'Bộ nhớ trong',' 64 GB'),
+(536,63,'Thẻ SIM','2 Nano SIM, hỗ trợ 4G');
+
+
+INSERT INTO `khuyenmai`(`MAKM`,`MALOAISP`,`TENKM`,`NGAYBATDAU`,`NGAYKETTHUC`,`HINHKHUYENMAI`) VALUES
+(1,16,'Bảnh bao đi chơi','2017/3/13','2018/9/13','/hinhquangcao/banhbaodichoi.jpg'),
+(2,16,'Chợ phá giá','2017/4/13','2018/10/13','/hinhquangcao/chophagia.jpg'),
+(3,16,'Công phá giá','2017/3/13','2018/9/13','/hinhquangcao/congphagia.jpg'),
+(4,16,'Bàng sắm thả ga','2017/2/13','2018/9/13','/hinhquangcao/nangsamthaga.jpg'),
+(5,16,'Nhớp nhoáng','2017/3/13','2018/9/13','/hinhquangcao/nhopnhoang.jpg'),
+(6,16,'Ở đâu rẻ hơn','2017/3/13','2018/9/13','/hinhquangcao/odaurehon.jpg'),
+(7,16,'voucher','2017/3/13','2018/9/13','/hinhquangcao/voucher.jpg');
+
+INSERT INTO `chitietkhuyenmai` VALUES
+(2,1,30),
+(2,2,20),
+(2,3,40),
+(2,5,30),
+(2,6,70),
+(2,7,44),
+(2,8,50),
+(2,9,30),
+(2,14,70),
+(2,15,10),
+(2,16,22),
+(2,17,30),
+(2,18,50),
+(2,19,40),
+(2,20,20),
+(2,21,10),
+(2,22,30);
+
+INSERT INTO `shop` VALUES
+(1,"Mỗi ngày đều vui","",1),
+(2,"Không cảm xúc","",2),
+(3,"Lại đây nào","",3),
+(4,"Ta cùng vui","",4);
+
+    
+
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hangoclong.shop1">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/appo"
+        android:label="Shopee"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".View.TrangChu.TrangChuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".View.DangNhap.DangNhap.DangNhapActivity" />
+        <activity
+            android:name=".View.ThietLap.ThietLapActivity"
+            android:parentActivityName=".View.DangNhap.DangNhap.DangNhapActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.DangNhap.DangNhap.DangNhapActivity" />
+        </activity>
+        <activity
+            android:name=".View.DangNhap.DiaLogDangXuatActivity"
+            android:label=" "
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".View.DangNhap.DiaLogDangNhapActivity"
+            android:label=""
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".View.DangNhap.DangKy.ActivityDangKy1"
+            android:label="Đăng ký " />
+        <activity
+            android:name=".View.DangNhap.DangKy.ActivityDangky2"
+            android:label="Thiết lập đăng ký" />
+        <activity android:name=".View.DangNhap.DangKy.ActivityDangkySdt" />
+        <activity android:name=".View.DangNhap.DangKy.ActivityDangKySMS" />
+        <activity android:name=".View.DanhMucActivity.DanhMucActivity" />
+        <activity android:name=".View.DanhMucConActivity.DanhMucConActivity" />
+        <activity android:name=".View.ChiTietSanPham.ChiTietSanPhamActivity" />
+        <activity android:name=".View.TimKiem.TimKiemActivity" />
+        <activity android:name=".View.DanhGia.DanhGiaActivity" />
+        <activity
+            android:name=".View.DanhGia.ThemDanhGiaActivity"
+            android:label=""
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+        <activity android:name=".View.GioHang.GioHangActivity" />
+        <activity
+            android:name=".View.GioHang.DiaLogXoa"
+            android:label=""
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" />
+        <activity android:name=".View.ThanhToan.DiaChi.DiaChiActivity" />
+        <activity android:name=".View.ThanhToan.DiaChi.ThemDiaChi.ThemDiaChiActivity" />
+        <activity android:name=".View.ThanhToan.DiaChi.CapNhatDiaChi.CapnhatDiaChiActivity" />
+        <activity android:name=".View.ThanhToan.VanChuyen.VanChuyenActivity" />
+        <activity android:name=".View.ThanhToan.ThanhToan.ThanhToanActivity" />
+        <activity android:name=".View.ThanhToan.ThanhToan.XacNhanActivity"></activity>
+    </application>
+
+</manifest>

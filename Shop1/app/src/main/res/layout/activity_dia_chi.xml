@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#f2f1f1"
+       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="15dp"
+            android:background="#ffffff">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                   android:padding="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location_on_black_18dp"
+                    android:background="@drawable/vientronxanh"/>
+
+
+
+                <View
+                    android:layout_width="59dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="@color/lam1"/>
+
+                <ImageView
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_library_books_black_18dpsxam"
+                    android:background="@drawable/vientronxam"
+                    android:layout_gravity="center"/>
+
+
+                <View
+                    android:layout_width="59dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#BDBDBD"/>
+
+                <ImageView
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_payment_black_18dpxam"
+                    android:background="@drawable/vientronxam"/>
+                 <View
+                    android:layout_width="59dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="#BDBDBD"/>
+                <ImageView
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_done_black_18dp"
+                    android:background="@drawable/vientronxam"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Địa chỉ"
+                    android:layout_weight="1"
+                    android:textColor="@color/lam1"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vận chuyển"
+                    android:layout_weight="1"
+                    android:textColor="#D7CCC8"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+           />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thanh toán"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#D7CCC8"
+
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xác nhận"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+
+                    android:textColor="#D7CCC8"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"/>
+
+        <View
+            android:layout_marginTop="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerDiaChi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            ></android.support.v7.widget.RecyclerView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"/>
+        <TextView
+            android:id="@+id/txtThemDiaChi"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thêm địa chỉ mới"
+            android:textColor="#000"
+            android:background="#ffffff"
+            android:drawableRight="@drawable/ic_add_black_24dp"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"/>
+
+    </LinearLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BDBDBD"
+        android:layout_marginTop="?attr/actionBarSize"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="6dp"
+        android:background="@color/colorWhite">
+        <Button
+            android:id="@+id/btnTiepTheo"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@drawable/bgbtnmuahang"
+            android:text="TIẾP THEO : ĐƠN VỊ VẬN CHUYỂN"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
+        <LinearLayout
+            android:padding="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/edMail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGray"
+                android:theme="@style/MyEditTextTheme"
+                android:paddingBottom="20dp"
+                android:textSize="16sp"
+
+                />
+
+            <EditText
+                android:id="@+id/edTenDN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGray"
+                android:theme="@style/MyEditTextTheme"
+                android:paddingBottom="20dp"
+                android:textSize="16sp"
+                android:hint="Tên đăng nhập"
+                />
+
+            <EditText
+                android:id="@+id/edMK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGray"
+                android:theme="@style/MyEditTextTheme"
+                android:paddingBottom="20dp"
+                android:textSize="16sp"
+                android:hint="Mật khẩu"
+                />
+
+            <EditText
+                android:id="@+id/edXNMK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGray"
+                android:theme="@style/MyEditTextTheme"
+                android:paddingBottom="20dp"
+                android:textSize="16sp"
+                android:hint="Xác nhận mật khẩu"
+                />
+
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/acc"
+                    android:layout_marginRight="25dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chạm để thay đổi"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btndangky"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bgdangnhap_facebook"
+                android:text="Tiếp tục"
+                android:textColor="@color/colorWhite"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:layout_marginTop="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bằng việc đăng ký, bạn đồng ý với điều khoản Dịch vụ và Chính sách bảo mật của Shopee"
+                android:textSize="14sp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+    <ImageButton
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="12dp"
+        android:src="@drawable/ic_keyboard_backspace_black_24dp"
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        />
+
+
+</FrameLayout>

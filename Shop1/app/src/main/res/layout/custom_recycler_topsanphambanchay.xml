@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+    <ImageView
+        android:id="@+id/imSP"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:scaleType="centerInside"/>
+
+    <TextView
+        android:id="@+id/txtGiaTien"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="80dp"
+
+        android:layout_height="wrap_content"
+        android:text="1,66500,000 ~ 1,500,000VNĐ "
+        android:textSize="12sp"
+        android:textColor="@color/colorBlack"
+        android:maxLines="2"/>
+
+    <TextView
+        android:id="@+id/txtKhoang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Từ đ 115.000"
+        android:textSize="12sp"/>
+
+</LinearLayout>

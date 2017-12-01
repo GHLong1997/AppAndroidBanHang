@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"   android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorWhite"
+    android:padding="20dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bạn chăc chắn muốn đăng xuất?"
+        android:textColor="@color/colorGanBlack"/>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnKhong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không"
+            android:background="@color/colorWhite"
+            android:textColor="@color/bgToolbar"/>
+        <Button
+            android:id="@+id/btnCo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đồng Ý"
+            android:background="@color/colorWhite"
+            android:textColor="@color/bgToolbar"/>
+    </LinearLayout>
+
+
+</LinearLayout>

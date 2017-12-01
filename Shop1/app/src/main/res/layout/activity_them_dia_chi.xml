@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#e6e0e0"
+  >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BDBDBD"/>
+
+    <LinearLayout
+        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên"
+            android:textColor="#000"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/edTen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Điền tên"
+            android:cursorVisible="true"
+            android:textSize="13sp"
+            android:background="@color/colorWhite"
+            android:textDirection="inherit"
+            android:textAlignment="inherit"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại"
+            android:textColor="#000"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/edSDT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Điền Số điện thoại"
+            android:cursorVisible="true"
+            android:textSize="13sp"
+            android:background="@color/colorWhite"
+            android:textDirection="inherit"
+            android:phoneNumber="true"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tỉnh/Thành phố"
+            android:textColor="#000"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/edTinh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Điền Tỉnh/Thành phố"
+            android:cursorVisible="true"
+            android:textSize="13sp"
+            android:background="@color/colorWhite"
+            android:textDirection="inherit"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quận/Huyện"
+            android:textColor="#000"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/edQuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Điền Quận/Huyện"
+            android:cursorVisible="true"
+            android:textSize="13sp"
+            android:background="@color/colorWhite"
+            android:textDirection="inherit"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phường/Xã"
+            android:textColor="#000"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/edPhuong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Điền Phường/Xã"
+            android:cursorVisible="true"
+            android:textSize="13sp"
+            android:background="@color/colorWhite"
+            android:textDirection="inherit"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ cụ thể"
+            android:textColor="#000"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số nhà, tên tòa nhà, tên đường, tên khu vực"
+            android:textSize="12sp"/>
+        <EditText
+            android:id="@+id/edDiaChiCuThe"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập địa chỉ cụ thể"
+            android:textSize="14sp"
+            android:background="@color/colorWhite"
+            android:cursorVisible="true"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BDBDBD"
+        />
+    <android.support.v7.widget.SwitchCompat
+        android:visibility="gone"
+        android:id="@+id/swMacDinh"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đặt làm địa chỉ mặt định"
+        android:background="@color/colorWhite"/>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/lnXoaDiaChi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="10dp"
+        android:visibility="gone">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xóa địa chỉ"
+            android:textColor="@color/bgToolbar"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+    <Button
+        android:enabled="false"
+        android:id="@+id/btnHoanThanh"
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/transitionbtn"
+        android:text="Hoàn thành"
+        android:textColor="@color/colorWhite"/>
+</LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frLayout">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="?attr/actionBarSize"
+        >
+
+
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPagerSlide"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp">
+
+                </android.support.v4.view.ViewPager>
+                <LinearLayout
+                    android:layout_gravity="bottom"
+                    android:id="@+id/layoutDot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    />
+            </FrameLayout>
+
+
+            <View
+                android:layout_marginTop="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/gr"
+                android:layout_marginBottom="7dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shopee Mail"
+                    android:layout_weight="1"
+                    android:textSize="11sp"/>
+
+                <TextView
+                    android:paddingLeft="7dp"
+                    android:paddingRight="3dp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xem Tất Cả"
+                    android:textSize="11sp"
+                    android:background="@drawable/bg_text1"
+                    android:textColor="@color/colorWhite"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_white_18dp"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerThuongHieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:id="@+id/lnTopDT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+                <View
+                    android:layout_marginTop="7dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/gr"
+                    android:layout_marginBottom="7dp"/>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TOP ĐIỆN THOẠI BÁN CHAY"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerBanChayNhat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+            <View
+                android:layout_marginTop="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/gr"
+                android:layout_marginBottom="7dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danh mục"
+                android:textSize="11sp"
+                android:padding="10dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerDanhMucCon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        >
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_search_black_18dp"
+                android:background="@drawable/viench"
+                android:text="Shopee"
+                android:textColor="#9E9E9E"
+                android:gravity="start|center"
+                android:textAllCaps="false"
+                android:drawablePadding="3dp"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                />
+            <ImageButton
+                android:paddingLeft="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ssa"
+                android:background="@android:color/transparent"
+                android:textSize="10sp"
+                />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginTop="?attr/actionBarSize"></View>
+</FrameLayout>

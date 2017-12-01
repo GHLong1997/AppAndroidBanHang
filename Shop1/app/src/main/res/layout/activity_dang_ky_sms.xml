@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:title="Số điện thoại"/>
+        <LinearLayout
+            android:padding="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/edSdt"
+                android:inputType=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số điện thoại"
+                android:textColor="@color/colorGray"
+                android:theme="@style/MyEditTextTheme"
+                android:paddingBottom="20dp"
+                android:textSize="17sp"
+                />
+            <Button
+                android:id="@+id/btnTiepTuc"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bgdangnhap_facebook"
+                android:text="Tiếp tục"
+                android:textColor="@color/colorWhite"
+                android:textSize="17sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+</FrameLayout>

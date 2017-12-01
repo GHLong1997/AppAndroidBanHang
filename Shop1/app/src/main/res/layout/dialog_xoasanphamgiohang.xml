@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bạn chắc chắn muốn bỏ sản phẩm này?"
+        android:paddingBottom="20dp"
+      />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginRight="70dp">
+        <Button
+            android:background="#fff"
+            android:id="@+id/btnKhong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KHÔNG"
+            android:textColor="#304FFE"
+            android:textStyle="bold"/>
+        <Button
+            android:background="#fff"
+            android:id="@+id/btnCo"
+            android:textStyle="bold"
+            android:textColor="#304FFE"
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CÓ"/>
+    </LinearLayout>
+
+
+</LinearLayout>

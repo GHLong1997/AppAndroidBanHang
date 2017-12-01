@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    >
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="15dp"
+                android:background="#ffffff">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+
+                        android:padding="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_location_on_black_18dp"
+                        android:background="@drawable/vientronxanh"/>
+
+
+
+                    <View
+                        android:layout_width="59dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:background="@color/lam1"/>
+
+                    <ImageView
+                        android:padding="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_library_books_black_18dps"
+                        android:background="@drawable/vientronxanh"
+                        android:layout_gravity="center"/>
+
+
+                    <View
+                        android:layout_width="59dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:background="@color/lam1"/>
+
+                    <ImageView
+                        android:padding="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_payment_black_18dp"
+                        android:background="@drawable/vientronxanh"/>
+                    <View
+                        android:layout_width="59dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:background="#00BFA5"/>
+                    <ImageView
+                        android:padding="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_done_black_18dp"
+                        android:background="@drawable/vientronxanh"/>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Địa chỉ"
+                        android:layout_weight="1"
+                        android:textColor="@color/lam1"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vận chuyển"
+                        android:layout_weight="1"
+                        android:textColor="@color/lam1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thanh toán"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#00BFA5"
+
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Xác nhận"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+
+                        android:textColor="@color/lam1"
+                        />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="#BDBDBD"
+              >
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="100dp"
+
+                >
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/dd"
+                    />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ĐẶT HÀNG THÀNH CÔNG"
+                    android:textColor="@color/bgLinearInToolBar"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite">
+    </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#BDBDBD"
+        android:layout_marginTop="?attr/actionBarSize">
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="6dp"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btnTroVeTrangChu"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@drawable/bgbtnmuahang"
+            android:text="TRỞ VỀ TRANG CHỦ"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+</FrameLayout>
+

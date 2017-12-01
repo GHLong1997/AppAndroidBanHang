@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "467529880738",
+    "firebase_url": "https://shop1-44d99.firebaseio.com",
+    "project_id": "shop1-44d99",
+    "storage_bucket": "shop1-44d99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467529880738:android:1f59d778843b5627",
+        "android_client_info": {
+          "package_name": "com.hangoclong.shop1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467529880738-k5ebl2ufagf8lrdsf49mle6j4oure97u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hangoclong.shop1",
+            "certificate_hash": "626af1fae6a582a70f835c5f015bd831c33412f8"
+          }
+        },
+        {
+          "client_id": "467529880738-83u079lovo3bgbv6hrdg201ti5gslp3c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkhBHbru_7SXE_w2s_80IToDfwie5YLKY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467529880738-83u079lovo3bgbv6hrdg201ti5gslp3c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
