@@ -1,4 +1,5 @@
-﻿  CREATE TABLE `thuonghieu` (
+﻿CREATE DATABASE shop1
+CREATE TABLE `thuonghieu` (
         `MATHUONGHIEU` integer PRIMARY KEY,
         `TENTHUONGHIEU` varchar(100) CHARACTER SET utf8 DEFAULT NULL, 
         `HINHTHUONGHIEU` TEXT,
