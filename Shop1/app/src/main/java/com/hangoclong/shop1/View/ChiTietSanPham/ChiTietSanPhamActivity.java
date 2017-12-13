@@ -122,9 +122,14 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements  ViewCh
         giaoDienCustomGioHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChiTietSanPhamActivity.this, GioHangActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.trans_left_in,R.anim.trans_left_out);
+                if(TrangChuActivity.TENDANGNHAP ==""){
+                    Toast.makeText(ChiTietSanPhamActivity.this,"Bạn chưa đăng nhập",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(ChiTietSanPhamActivity.this, GioHangActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.trans_left_in,R.anim.trans_left_out);
+                }
+
             }
         });
 
@@ -266,18 +271,23 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements  ViewCh
                 overridePendingTransition(R.anim.trans_left_in,R.anim.trans_left_out);
                 break;
             case R.id.imThemGiohang:
-                Fragment fragment = fragmentSliderKhuyenMaiList.get(0);//mục đích chỉ là lấy cái hình sản phầm đâu tiên mà đã tải
-                View view1 = fragment.getView();//đã lấy đc cai layout tổng cửa thăng fragment;
-                ImageView imageView = view1.findViewById(R.id.imSlider);
-                Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();//phải ép kiểu
+                if(TrangChuActivity.TENDANGNHAP ==""){
+                    Toast.makeText(ChiTietSanPhamActivity.this,"Bạn chưa đăng nhập",Toast.LENGTH_SHORT).show();
+                }else {
+                    Fragment fragment = fragmentSliderKhuyenMaiList.get(0);//mục đích chỉ là lấy cái hình sản phầm đâu tiên mà đã tải
+                    View view1 = fragment.getView();//đã lấy đc cai layout tổng cửa thăng fragment;
+                    ImageView imageView = view1.findViewById(R.id.imSlider);
+                    Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();//phải ép kiểu
 
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-                byte[] hinhsanphamgiohang = byteArrayOutputStream.toByteArray();
-                sanPhamGioHang.setHinhgiohang(hinhsanphamgiohang);
-                sanPhamGioHang.setSoluong(1);//tuc la khi ng dung kich vao gio hang thi so luong luc dau luon luon la 1
-                sanPhamGioHang.setSoLuongTonKho(soluongtonkho);
-                presenterLogicChiTietSanPham.ThemGioHang(sanPhamGioHang,this);
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+                    byte[] hinhsanphamgiohang = byteArrayOutputStream.toByteArray();
+                    sanPhamGioHang.setHinhgiohang(hinhsanphamgiohang);
+                    sanPhamGioHang.setSoluong(1);//tuc la khi ng dung kich vao gio hang thi so luong luc dau luon luon la 1
+                    sanPhamGioHang.setSoLuongTonKho(soluongtonkho);
+                    presenterLogicChiTietSanPham.ThemGioHang(sanPhamGioHang,this);
+                }
+
 
 
         }

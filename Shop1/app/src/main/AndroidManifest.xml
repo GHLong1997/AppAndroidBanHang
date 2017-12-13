@@ -66,7 +66,8 @@
         <activity android:name=".View.ThanhToan.DiaChi.CapNhatDiaChi.CapnhatDiaChiActivity" />
         <activity android:name=".View.ThanhToan.VanChuyen.VanChuyenActivity" />
         <activity android:name=".View.ThanhToan.ThanhToan.ThanhToanActivity" />
-        <activity android:name=".View.ThanhToan.ThanhToan.XacNhanActivity"></activity>
+        <activity android:name=".View.ThanhToan.ThanhToan.XacNhanActivity" />
+        <activity android:name=".View.DangNhap.ThongBaoActivity"></activity>
     </application>
 
 </manifest>

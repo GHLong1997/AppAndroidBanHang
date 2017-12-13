@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
@@ -106,9 +107,14 @@ public class TrangChuActivity extends AppCompatActivity implements View.OnClickL
         giaoDienCustomGioHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TrangChuActivity.this, GioHangActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.trans_left_in,R.anim.trans_left_out);
+                if(TENDANGNHAP ==""){
+                    Toast.makeText(TrangChuActivity.this,"Bạn chưa đăng nhập",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(TrangChuActivity.this, GioHangActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.trans_left_in,R.anim.trans_left_out);
+                }
+
             }
         });
         return true;
